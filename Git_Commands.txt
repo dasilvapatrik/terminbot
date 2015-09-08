@@ -1,0 +1,10 @@
+status = git status
+
+git anlegen = git init
+
+untracket files add = git add filename
+
+changes to be committed = 
+
+
+commit erzeuge = git commit
