@@ -6,9 +6,11 @@ untracket files add = git add filename
 
 changes to be committed = 
 
+git help commit
 commit erzeuge = git commit
+git commit -a -m "hallo textdatei2 hinzugefuegt"
 
-
+git help commit
 
 update auf github:
 …or push an existing repository from the command line
