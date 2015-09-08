@@ -6,5 +6,11 @@ untracket files add = git add filename
 
 changes to be committed = 
 
-
 commit erzeuge = git commit
+
+
+
+update auf github:
+…or push an existing repository from the command line
+git remote add origin https://github.com/dasilvapatrik/terminbot.git
+git push -u origin master
