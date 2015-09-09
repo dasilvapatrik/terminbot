@@ -4,6 +4,8 @@ git anlegen = git init
 
 untracket files add = git add filename
 
+git log = history
+
 changes to be committed = 
 
 git help commit
