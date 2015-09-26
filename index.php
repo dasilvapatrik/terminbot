@@ -19,7 +19,7 @@
 session_start();
 $verhalten = 0;
 
-if(!isset($_SESSION["username"]) and !isset($_GET["page"])) {
+if(!isset($_SESSION["loginname"]) and !isset($_GET["page"])) {
 $verhalten = 0;
 }
 /* ######### LoginScript ENDE ######### */
@@ -29,24 +29,27 @@ $verhalten = 0;
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> 
 		<!-- <meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">-->
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
         <title>TerminBot - eine erweiterte Eventanmeldungsplattform</title>
         <link rel="stylesheet" href="css/terminbot.css" type="text/css" media="screen" />
-		<script src="js/sorttable.js"></script>
+		<script src="js/jquery-1.10.2.js"></script>
+		<script type="text/javascript">
+			$(document).ready(function() {
+				$('.menubutton').click(function() {
+					$('nav').slideToggle('slow');
+				});
+			});
+		</script>
   	</head>
 
 	<body>
 		<header>
 			<div id="titelbild"></div>
-			<?php //include("header_menu.php"); ?>
 		</header>
-		
 		<section id="wrapper">
-			<section id="inhaltsbereich">		
-				<nav>	
-					<?php include("nav.php"); /* Navigationsseite */?>	
-				</nav>
-				
+			<section id="inhaltsbereich"> <!-- Inhaltsbereich Weisser Container mit blauem Rand -->		
+				<?php include("nav.php");	/* Navigation */?>	
 				<?php include("sites.php"); /* Seitenauswahl-Default: startseite.php*/?>
 			</section>
 			
@@ -55,9 +58,5 @@ $verhalten = 0;
 			</footer>
 			<br class="clear"/>
 		</section>
-
-
-		
-
 	</body>
 </html>

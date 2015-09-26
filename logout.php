@@ -2,7 +2,7 @@
 session_start();
 session_destroy();
 ?>
-<h1>Logout</h1>
-<h3>Du bist nun ausgeloggt.</h3>
+<section id="inhalttitel">Logout</section>
+<p>Du bist nun ausgeloggt.</p>
 		
-<!--<meta http-equiv="refresh" content="3; URL=index.php?section=startseite" />-->
+<meta http-equiv="refresh" content="2; URL=index.php?section=startseite" />

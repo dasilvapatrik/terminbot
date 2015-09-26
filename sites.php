@@ -9,17 +9,22 @@
 			include("kontakt.php"); 
 		break;
 
-		case "registrieren":
-			include("registrieren.php"); 
+		case "registrierung":
+			include("registrierung.php"); 
 		break;
 
 		case "events":
 			include("events.php"); 
 		break;
 
+		case "login":
+			include("login.php"); 
+		break;
+		
 		case "logout":
 			include("logout.php"); 
-		break;
+		break;		
+		
 							
 		default:
 			include("startseite.php"); 
