@@ -88,7 +88,7 @@ if($control != 0)
 </article>
 <article>
 	<section id="inhalttitel">Registrierung</section>
-	<p>Noch kein Account? Bitte hier <a href="index.php?section=registrierung">registrieren</a></p>
+	<p>Noch kein Account? Bitte hier <a href="index.php?section=registrierung">registrieren</a>.</p>
 </article>
 <br class="clear"/>
 

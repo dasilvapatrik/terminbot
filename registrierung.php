@@ -20,7 +20,7 @@ if ($_SESSION['loginname'] == '')
 				</li>
 				<li>
 					<label>Nachname</label>
-					<input required type="text" name="user_name" align="right" class="feld-lang" />
+					<input required type="text" name="user_name" class="feld-lang" />
 				</li>
 				<li>
 					<label>E-Mail Adresse</label>

@@ -3,6 +3,13 @@
 $loginuser = mysqli_real_escape_string($db, $_SESSION['loginname']);
 ## GLOBAL ENDE ##
 
+/* ######### PHP Datum europäisch ausgeben aus selfphp.com ######### */
+function datumEU($date) {
+    $d    =    explode("-",$date);
+	return    sprintf("%02d.%02d.%04d", $d[2], $d[1], $d[0]);
+}
+/* ######### PHP Datum europäisch ausgeben ENDE ######### */
+
 session_start();
 if(isset($_SESSION["loginname"])) 
 {
@@ -15,17 +22,46 @@ if(isset($_SESSION["loginname"]))
 			while($row = $sql->fetch_object())
 					{	
 ?>
-<section id="inhalttitel">Privatbereich von <?php echo $row->user_vorname . " " . $row->user_name ; }
-?> </section>
+<section id="inhalttitel">Privatbereich von <?php echo $row->user_vorname . " " . $row->user_name ; }?> 
+<form><input class="buttonstyle" type="button" value="Event erstellen" onClick="window.location='index.php?section=event_erstellen'"></form>
+<br class="clear"/></section>
 
 
+<p>Willkommen beim TerminBot. Dies ist eine erweiterte Eventanmeldeplattform.<br>Du befindest dich nun in deinem Privatbereich, wo deine Events aufgelistet sind.</p>
 
-<p>Events erstellen: hier</p>
 
+		<article>
 <section id="inhalttitel">Meine Events</section>
+			<table>
+				<tr><th align="left" id="event">Event</th><th align="center" id="deadline">Anmelde-Deadline</th><th align="left" id="veranstalter">Veranstalter</th></tr>
+							
+<?php
+# Die SQL-Abfrage -> Events:
+				
+$sql = $db->query('SELECT 
+					event.event_id,
+					event.event_titel,
+					event.event_deadline,
+					user.user_id,
+					user.user_vorname,
+					user.user_name,
+					user.user_email
+				FROM event
+					JOIN user ON (event.fk_user_id = user.user_id) WHERE user_email = "' . $loginuser . '"');
 
-
-<?php echo "hallo " . $loginuser; 
+					
+					while($row = $sql->fetch_object())
+					{
+						echo '<tr class="linkzeile" onMouseover="this.bgColor=\'#aaaaaa\'" onMouseout="this.bgColor=\'transparent\'">';
+						echo '<td align="left" onClick="window.location.href=\'?section=konzert_details_band&band=' . $row->event_id . '\'">'. $row->event_titel .'</td>';
+						echo '<td align="center" onClick="window.location.href=\'?section=konzert_details_location&location=' . $row->event_id . '\'">'. datumEU($row->event_deadline) .'</td>';
+						echo '<td align="left" onClick="window.location.href=\'?section=konzert_details_band&band=' . $row->event_id . '\'">'. $row->user_vorname . " " . $row->user_name .'</td>';
+						echo '</tr>';
+					}
+?>
+		</table>
+	</article>
+<?php 
 }
 else
 {?>
@@ -36,9 +72,5 @@ else
 	</section>
 <?php
 }?>
-
-
-
-
 <br class="clear"/>
 

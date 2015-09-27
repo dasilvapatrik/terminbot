@@ -13,10 +13,6 @@
 			include("registrierung.php"); 
 		break;
 
-		case "events":
-			include("events.php"); 
-		break;
-
 		case "login":
 			include("login.php"); 
 		break;
@@ -25,7 +21,18 @@
 			include("logout.php"); 
 		break;		
 		
-							
+		case "events":
+			include("events.php"); 
+		break;
+		
+		case "event_erstellen":
+			include("event_erstellen.php"); 
+		break;
+
+		case "test":
+			include("test.php"); 
+		break;
+		
 		default:
 			include("startseite.php"); 
 		break;

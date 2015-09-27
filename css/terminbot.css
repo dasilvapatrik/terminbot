@@ -8,8 +8,20 @@ body
 	font-family: 'Open Sans', sans-serif;
 	color:#333333;
 	margin: 0;
-	
-	/* css-gardient hintergrund Fremdcode: cssmatic.com */
+/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#cedce7+1,596a72+100;Grey+3D+%231 
+background: rgb(206,220,231); 
+background: -moz-linear-gradient(top,  rgba(206,220,231,1) 1%, rgba(89,106,114,1) 100%); 
+background: -webkit-gradient(linear, left top, left bottom, color-stop(1%,rgba(206,220,231,1)), color-stop(100%,rgba(89,106,114,1))); 
+background: -webkit-linear-gradient(top,  rgba(206,220,231,1) 1%,rgba(89,106,114,1) 100%); 
+background: -o-linear-gradient(top,  rgba(206,220,231,1) 1%,rgba(89,106,114,1) 100%);
+background: -ms-linear-gradient(top,  rgba(206,220,231,1) 1%,rgba(89,106,114,1) 100%); 
+background: linear-gradient(to bottom,  rgba(206,220,231,1) 1%,rgba(89,106,114,1) 100%); 
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#cedce7', endColorstr='#596a72',GradientType=0 ); */
+
+
+
+
+	 css-gardient hintergrund Fremdcode: cssmatic.com 
 	background: rgba(255,255,255,1);
 	background: -moz-radial-gradient(center, ellipse cover, rgba(255,255,255,1) 0%, rgba(158,158,158,1) 100%);
 	background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, rgba(255,255,255,1)), color-stop(100%, rgba(158,158,158,1)));
@@ -44,6 +56,12 @@ p
 	line-height:25px;
 	padding-left:10px;
 	padding-bottom:20px;
+}
+
+p.center
+{
+	
+	text-align:center;
 }
 
 hr
@@ -106,7 +124,7 @@ header
 {
 	//background-color: #ffff00;
 	max-width:750px;
-	height:700px;
+	height:auto;
 	margin:0 auto;
 	z-index: 2;
 	clear:both;
@@ -129,7 +147,7 @@ header
 	position: relative;
 	width:auto;
 	//background-color: #fff;
-	background:rgba(238,238,238,0.9);
+	background:rgba(238,238,238,0.8);
 	border: 3px solid #0066ff;
 	max-width:750px;
 	margin-top:155px;
@@ -150,6 +168,7 @@ header
 {
 	border-top: 2px dotted #CFCFCF; 
 	padding-top: 10px;
+	padding-bottom: 10px;
 }
 
 /* Navigation klein - Responsive Design */
@@ -217,6 +236,36 @@ nav ul li a:hover {
 }
 /* ENDE Navigation */
 
+/* Buttons */
+.buttonstyle 
+{
+	float: right;
+	font-size:15px;
+    background: #0066ff;
+    //padding: 8px 15px 8px 15px;
+    //border: none;
+    color: #fff;
+	//box-sizing: border-box;
+    //-webkit-box-sizing: border-box;
+    //-moz-box-sizing: border-box;
+    border:1px solid #BEBEBE;
+	border-radius: 10px;
+    padding: 15px;
+    margin:0px;
+    -webkit-transition: all 0.30s ease-in-out;
+    -moz-transition: all 0.30s ease-in-out;
+    -ms-transition: all 0.30s ease-in-out;
+    -o-transition: all 0.30s ease-in-out;
+    outline: none;  
+}
+
+.buttonstyle:hover
+{
+    background: #000;
+    box-shadow:none;
+    -moz-box-shadow:none;
+    -webkit-box-shadow:none;
+}
 
 /* Formular Style Teils Fremdcode von http://www.sanwebe.com/ - Form Style 1 */
 .formstyle 
@@ -243,7 +292,8 @@ nav ul li a:hover {
     font-weight: bold;
 }
 
-.formstyle input,
+.formstyle input, 
+button,
 textarea, 
 select{
     box-sizing: border-box;
@@ -271,9 +321,10 @@ select{
 }
 
 .formstyle .feld-halbiert 	{	width: 49%; 	}
+.formstyle .feld-halbiertRechts 	{	width: 49%; float:right}
 .formstyle .feld-lang		{	width: 100%;	}
 .formstyle .feld-select	{   width: 100%;	}
-.formstyle .feld-textarea	{   height: 100px;	}
+.formstyle .feld-textarea	{   height: 200px;	}
 
 .formstyle input[type=submit], .formstyle input[type=button]
 {
@@ -307,10 +358,45 @@ footer
 	z-index: 3;
 }
 
+/* Kreise füer Eventerstellungs-Schritte */
+#kreis 
+{
+	fload: left;
+	font-size: 2em;
+	font-weight: bold;
+	width: 2em;
+	height: 2em;
+	background: grey;
+	text-align: center;
+	-moz-border-radius: 50%;
+	-webkit-border-radius: 50%;
+	border-radius: 50%;
+}
+/* ENDE Schritte */
+
+/* tabelle */
+table{
+	border: 0;
+	width: 100%;
+	padding: 5px;
+	border-spacing: 0px; 
+}
+
+.spalteklein
+{
+	width: 20%;
+	vertical-align: top;
+}
+
 /* MISC */
 .clear
 {
-        clear:both;
+    clear:both;
+}
+
+.gmapsstyle
+{
+	border: 3px solid #000;
 }
 
 
@@ -344,6 +430,11 @@ footer
 
 @media (max-width: 500px)
 {
+	/* Bemerkungen ausblenden bei Smartphone-Ansicht */
+	#event, tr td:nth-child(1)			{ font-size:13; }
+	#deadline, tr td:nth-child(2)		{ display:none; visibility:hidden; }
+	#veranstalter, tr td:nth-child(3)	{ font-size:12; }
+	
 	#titelbild
 	{
 		position: relative;
