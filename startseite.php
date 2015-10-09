@@ -5,6 +5,6 @@ if ($_SESSION['loginname'] == '')
 	}
 	else
 	{
-		include("events.php");
+		include("privatbereich.php");
 	}
 ?>

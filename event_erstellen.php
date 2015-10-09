@@ -1,9 +1,16 @@
 <script>
-var $current=2;
-function AddEvent(){
-document.getElementById("FeldAuswahldatum").innerHTML+="<li><label>"+$current+". Auswahl Datum & Zeit</label><input required autofocus type=\'datetime-local\' name=\"auswahldatum"+$current+"\" class=\'feld-lang\' /></li>";			
-$current=$current+1;
-}
+function AnzahlAuswahlDatum (anzahl) 
+		{
+			var $current=1;
+			for (var i = 0; i < anzahl; i++)
+			{
+			document.getElementById("FeldAuswahldatum").innerHTML+="<li><label>"+$current+". Auswahl Datum & Zeit</label><input required autofocus type=\'datetime-local\' name=\"auswahldatum"+$current+"\" class=\'feld-lang\' /></li>";			
+			$current=$current+1;
+			}
+			<!-- Eingabe-Formular für Datum nach eingabe entfernen -->
+			var elem = document.getElementById("AuswahlFeld");
+			elem.parentElement.removeChild(elem);
+		}
 </script>
 <?php
 ## GLOBAL ##
@@ -106,15 +113,20 @@ if(isset($_GET["page"]))
 	<article>
 		<form method="post" action="index.php?section=event_erstellen&page=3">
 			<ul class="formstyle">
-				<li>
+				<!--<li>
 					<label>1. Auswahl Datum & Zeit</label>
 					<input required autofocus type="datetime-local" name="auswahldatum1" class="feld-lang" />
-				</li>
+				</li>-->
 				<li id="FeldAuswahldatum">
 					<!-- Hier werden die Zusätzlichen Felder eingefügt -->
 				</li>
+				<li id="AuswahlFeld">
+					<label>Anzahl Auswahldatum wählen</label>
+					<input NAME="anzahl" type=number value="3" min="1" max="15">
+					<input NAME="submit" type=button VALUE="Auswahl Daten & Zeit erzeugen" onClick="AnzahlAuswahlDatum(form.anzahl.value)">
+				</li>
 				<li>
-					<input type="button" onclick="AddEvent()" value="Auswahl Datum hinzufügen"> <input type="submit" value="Weiter" />
+					<input type="submit" value="Weiter" />
 				</li>
 			</ul>
 		</form>
@@ -145,6 +157,7 @@ if(isset($_GET["page"]))
 				echo "<br>";*/
 		}
 
+		//Array in die Session speichern
 		$_SESSION['termine'] = $values;
 
 		$event_titel = mysqli_real_escape_string($db, $_SESSION['event_titel']);
@@ -278,6 +291,7 @@ if(isset($_GET["page"]))
 {
 	if($_GET["page"] == "4") 
 	{
+	/* Event - Variablen aus Sessionübergabe */
 	$fk_user_id = mysqli_real_escape_string($db, $_SESSION['user_id']);
 	$event_titel = mysqli_real_escape_string($db, $_SESSION['event_titel']);
 	$event_beschreibung = mysqli_real_escape_string($db, $_SESSION['event_beschreibung']);
@@ -286,11 +300,20 @@ if(isset($_GET["page"]))
 	$event_ortplz = mysqli_real_escape_string($db, $_SESSION['event_ortplz']);
 	$event_ort = mysqli_real_escape_string($db, $_SESSION['event_ort']);
 	$event_deadline = mysqli_real_escape_string($db, $_SESSION['event_deadline']);
+	/* AuswahlDatum Array und Variable aus Sessionübergabe */
+	$values = $_SESSION['termine']; 
+	$FK_event_id = $_SESSION['event_id'];
+	
+	/* Hash Link für Events erzeugen: */
+	$event_link = hash('crc32', ("Termin" . $FK_event_id ."Bot"));
+	echo $event_link;
+	$_SESSION['event_link'] = $event_link;
+	
 	
 	/* Event in DB schreiben */
-	$sql = 'INSERT INTO event (`event_titel`, `event_beschreibung`, `event_ortdetail`, `event_ortstrasse`, `event_ortplz`, `event_ort`, `event_deadline`, `fk_user_id`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
+	$sql = 'INSERT INTO event (`event_link`, `event_titel`, `event_beschreibung`, `event_ortdetail`, `event_ortstrasse`, `event_ortplz`, `event_ort`, `event_deadline`, `fk_user_id`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)';
 	$eintrag = $db->prepare($sql);
-	$eintrag->bind_param( 'sssssssi', $event_titel, $event_beschreibung, $event_ortdetail, $event_ortstrasse, $event_ortplz, $event_ort, $event_deadline, $fk_user_id);
+	$eintrag->bind_param( 'ssssssssi', $event_link, $event_titel, $event_beschreibung, $event_ortdetail, $event_ortstrasse, $event_ortplz, $event_ort, $event_deadline, $fk_user_id);
 	$eintrag->execute();
 
 	// Pruefen ob der Eintrag efolgreich war
@@ -314,13 +337,11 @@ if(isset($_GET["page"]))
 	}
 	
 	/* Terminauswahl in DB schreiben */
-	$values = $_SESSION['termine']; 
-	$termin_termin_id = $_SESSION['event_id'];
 	foreach ($values as $key => $value) 
 		{
-			$sql = 'INSERT INTO terminfindung (`terminfindung_datumzeit`, `termin_termin_id`) VALUES (?, ?)';
+			$sql = 'INSERT INTO terminfindung (`terminfindung_datumzeit`, `FK_event_id`) VALUES (?, ?)';
 			$eintrag = $db->prepare($sql);
-			$eintrag->bind_param( 'si', $value, $termin_termin_id);
+			$eintrag->bind_param( 'si', $value, $FK_event_id);
 			$eintrag->execute();
 		}
 
@@ -343,8 +364,36 @@ if(isset($_GET["page"]))
 			</section>
 		<?php
 		}	
-	
+		?>
+			<form method="post" action="index.php?section=event_erstellen&page=5">
+				<ul class="formstyle">
+					<li>
+						<input type="submit" value="Einladungen verschicken" />
+					</li>
+				</ul>
+			</form>
+	<?php
 	}
+
 }
+
+if(isset($_GET["page"])) 
+{
+	if($_GET["page"] == "5") 
+	{
+	$event_link = $_SESSION['event_link'];
+		echo "<p>Dein Event ist nun erstellt und kann mit diesem Direktlink versendet werden. <br>Bitte kopiere den Link und versende ihn an deine Gäste.<p>";
+		?>
+					<form method="post" action="index.php?section=event_erstellen&page=5">
+				<ul class="formstyle">
+					<li>
+						<label>Direktlink</label>
+						<input type="text" readonly name="event_link" class="feld-lang" value="http://localhost/terminbot/index.php?section=event&link=<?php echo $event_link;?>"/>
+					</li>
+				</ul>
+			</form>
+	    <?php
+	}
+}	
 ?>
 <br class="clear"/>

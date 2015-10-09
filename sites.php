@@ -1,6 +1,14 @@
 <?php
 	switch($section)
 	{
+		/*case "login":
+			include("login.php"); 
+		break;
+				
+		case "privatbereich":
+			include("privatbereich.php"); 
+		break;*/
+		
 		case "hilfe":
 			include("hilfe.php"); 
 		break;
@@ -12,21 +20,17 @@
 		case "registrierung":
 			include("registrierung.php"); 
 		break;
-
-		case "login":
-			include("login.php"); 
-		break;
-		
+	
 		case "logout":
 			include("logout.php"); 
 		break;		
 		
-		case "events":
-			include("events.php"); 
-		break;
-		
 		case "event_erstellen":
 			include("event_erstellen.php"); 
+		break;
+		
+		case "event":
+			include("event.php"); 
 		break;
 
 		case "test":
