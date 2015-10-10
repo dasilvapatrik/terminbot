@@ -21,6 +21,8 @@ if(isset($_SESSION["loginname"]))
 			$sql = $db->query("SELECT * FROM user WHERE user_email = '$loginuser'");		
 			while($row = $sql->fetch_object())
 					{	
+					
+			$user_id = $row->user_id; //variable setzen für abfrage im privatbereich
 ?>
 <section id="inhalttitel">Privatbereich von <?php echo $row->user_vorname . " " . $row->user_name ; }?> 
 <form><input class="buttonstyle" type="button" value="Event erstellen" onClick="window.location='index.php?section=event_erstellen'"></form>
@@ -37,25 +39,33 @@ if(isset($_SESSION["loginname"]))
 							
 <?php
 # Die SQL-Abfrage -> Events:
-				
-$sql = $db->query('SELECT 
-					event.event_id,
-					event.event_link,
-					event.event_titel,
-					event.event_deadline,
-					user.user_id,
-					user.user_vorname,
-					user.user_name,
-					user.user_email
-				FROM 
-					event
-				JOIN 
-					user 
-				ON 
-					(event.fk_user_id = user.user_id) 
-				WHERE 
-					user_email = "' . $loginuser . '"');
-
+$sql = $db->query('select distinct
+		terminfindung.FK_event_id,
+		user.user_email,
+		user.user_vorname, 
+		user.user_name, 
+		event.event_id, 
+		event.event_titel,
+		event.event_link,
+		event.event_deadline 
+	from
+		terminfindung 
+	JOIN
+		terminfindung_has_user
+	ON
+		(terminfindung_has_user.fk_terminfindung_id = terminfindung.terminfindung_id)
+	JOIN 
+		user 
+	ON 
+		(terminfindung_has_user.fk_user_id = user.user_id)
+	JOIN 
+		event 
+	ON 
+		(event.event_id = terminfindung.FK_event_id)
+	WHERE
+		terminfindung_has_user.fk_user_id = "' . $user_id . '"
+	OR
+		user_email = "' . $loginuser . '";');				
 					
 					while($row = $sql->fetch_object())
 					{

@@ -85,9 +85,19 @@ h2	{ font-size: 1em; }
 
 .linkzeile
 { 
-		cursor: pointer; 
-		cursor: hand; 
+	cursor: pointer; 
+	cursor: hand; 
 }
+
+.checkbox
+{
+  width: 20px;
+  height: 20px;
+  vertical-align:middle;
+  background-color:green;
+  color: red;
+}
+
 
 header
 {
@@ -467,7 +477,7 @@ table{
 {
 	/* Bemerkungen ausblenden bei Smartphone-Ansicht */
 	#event, tr td:nth-child(1)				{ font-size:13; }
-	#deadline, tr td:nth-child(2)			{ display:none; visibility:hidden; }
+	#deadline, tr td:nth-child(2)			{ font-size:10; /*display:none; visibility:hidden;*/ }
 	#veranstalter, tr td:nth-child(3)		{ font-size:11; }
 
 	

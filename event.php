@@ -247,11 +247,26 @@ else
 		
 		if(!isset($_GET["page"])) 
 		{
+			/*if - User bereits datum usgewählt -> keine auswahl mehr
+			{ 
+			?>
+			
+			<?php
+			}
+			else - auswahldaten anzeigen
+			{
+			?>
+			
+			<?php
+			}*/
 		?>
 		
 		<article>
 			<section id="inhalttitel">Auswahldatum & Zeit</section>
-
+				<table>
+					<tr>
+						<th align="left">Datum</th><th>Zeit</th><th>Termin OK</th>
+					</tr>
 			<form method="post" action="index.php?<?php echo "section=event&link=" . $getlink . "&page"; ?>=2">
 			
 			<?php # Auslesen der Auswahl-Daten
@@ -267,7 +282,8 @@ else
 							ON 
 								(terminfindung.FK_event_id = event.event_id)
 							WHERE 
-								event_link = "' . $getlink . '"');
+								event_link = "' . $getlink . '"
+							ORDER BY terminfindung_datumzeit ASC');
 								
 				while($row = $sql->fetch_object())
 				{
@@ -277,19 +293,32 @@ else
 						$datumumwandlung = strftime("%A, %d. %B %Y",(strtotime($row->terminfindung_datumzeit)));
 						$zeitumwandlung = date("H:i",(strtotime($row->terminfindung_datumzeit)));
 						//echo $datumumwandlung . " - " . $zeitumwandlung . " Uhr ";?>
-						<p><?php echo $datumumwandlung . " - " . $zeitumwandlung . " Uhr";?></p>
-						<?php //echo  strftime("%A, %d %B %Y - %H:%M Uhr")?>
-						<input type="checkbox" name="<?php /* datum id auslesen */ echo $row->terminfindung_id;?>"/>
-						<input readonly hidden type="number" name="terminfindung_id" value="<?php /* datum id auslesen */ echo $row->terminfindung_id;?>" class="feld-halbiert" />
-				
+					<tr onMouseover="this.bgColor='#aaaaaa'" onMouseout="this.bgColor='transparent'">
+						<td width="50%">
+							<?php echo $datumumwandlung; ?>
+						</td>
+						<td align="center">
+							<?php echo $zeitumwandlung; ?>
+						</td>
+						<td align="center">
+							<input type="checkbox" class="checkbox" name="<?php /* datum id auslesen */ echo $row->terminfindung_id;?>"/>
+							<input readonly hidden type="number" name="terminfindung_id" value="<?php /* datum id auslesen */ echo $row->terminfindung_id;?>" class="feld-halbiert" />
+						</td>
+					</tr>
 				<?php
 				}
 				?>
-				<ul class="formstyle">
-					<li>
-						<input type="submit" value="Daten speichern" />
-					</li>
-				</ul>
+					<tr>
+						<td></td><td></td>
+						<td align="center">
+							<ul class="formstyle">
+								<li>
+									<input type="submit" value="Daten speichern" />
+								</li>
+							</ul>
+						</td>
+					</tr>
+				</table>
 			</form>
 		</article>
 		<?php
@@ -394,12 +423,36 @@ else
 										ON 
 											(user.user_id = terminfindung_has_user.fk_user_id)
 										WHERE 
-											event_link = "' . $getlink . '"');
+											event_link = "' . $getlink . '"
+										ORDER BY terminfindung_datumzeit ASC');
 					while($row = $sql->fetch_object())
 					{
+							$sqlcount = $db->query('SELECT count(user.user_vorname)
+														FROM 
+															terminfindung
+														JOIN 
+															event 
+														ON 	
+															(terminfindung.FK_event_id = event.event_id)
+														JOIN 
+															terminfindung_has_user 
+														ON
+															(terminfindung_has_user.fk_terminfindung_id = terminfindung.terminfindung_id)
+														JOIN
+															user
+														ON 
+															(user.user_id = terminfindung_has_user.fk_user_id)
+														WHERE 	
+															event_link = "' . $getlink . '" AND terminfindung_datumzeit = "' . $row->terminfindung_datumzeit . '" ');
+
+							$rowcount = $sqlcount->fetch_row();
+							
 							$Teilnehmerdatumumwandlung = date("d.m.Y",(strtotime($row->terminfindung_datumzeit)));
 							$Teilnehmerzeitumwandlung = date("H:i",(strtotime($row->terminfindung_datumzeit)));
-							echo "<b>" . $Teilnehmerdatumumwandlung . " - " . $Teilnehmerzeitumwandlung . " Uhr </b><br><ul>";
+							echo "<b>" . $Teilnehmerdatumumwandlung . " - " . $Teilnehmerzeitumwandlung . " Uhr </b>(" . $rowcount[0] . ")<br><ul>";
+												
+
+
 								$sqlnamen = $db->query('SELECT
 															user.user_vorname,
 															user.user_name
