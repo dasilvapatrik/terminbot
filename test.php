@@ -46,3 +46,9 @@ function copyToClipboard(elementId) {
 			</form>
 			<button onclick="copyToClipboard('p11')">Copy P1</button>
 			<button onclick="copyToClipboard('p22')">Copy P2</button>
+<hr>
+
+<form action="mailto:dasilva.patrik@gmail.com" method="post" name="Formular" enctype="text/plain">
+Abesender:* <input type="text" name="absender" size=15><br>
+Nachricht:* <textarea name="nachricht" rows="3" cols="25"></textarea><br>
+<p><input type="submit" value="Abschicken"></form>

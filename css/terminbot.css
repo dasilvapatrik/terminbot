@@ -205,7 +205,7 @@ header
 
 #inhaltsbereich article
 {
-	border-top: 2px dotted #000; 
+	border-top: 1px solid #0066ff; 
 	padding-top: 10px;
 	padding-bottom: 10px;
 }
@@ -362,6 +362,7 @@ select{
 .formstyle .feld-halbiert 	{	width: 49%; 	}
 .formstyle .feld-halbiertRechts 	{	width: 49%; float:right}
 .formstyle .feld-lang		{	width: 100%;	}
+.formstyle .feld-direktlink		{	width: 105%;	}
 .formstyle .feld-select	{   width: 100%;	}
 .formstyle .feld-textarea	{   height: 200px;	}
 

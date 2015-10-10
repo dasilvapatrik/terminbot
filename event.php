@@ -161,6 +161,14 @@ else
 			Bitte bestätige deine Termine. Falls du Fragen haben solltest,
 			kannst du diese weiter unten in den Kommentaren verfassen.</p>
 			<p>Veranstalter: <b><?php echo $row->user_vorname . " " . $row->user_name; ?></b></p>
+			<form>
+				<ul class="formstyle">
+					<li>
+						<label>Direktlink</label>
+						<input type="text" readonly name="event_link" class="feld-direktlink" value="http://localhost/terminbot/index.php?section=event&link=<?php echo $getlink;?>"/>
+					</li>
+				</ul>
+			</form>
 			<p class="titel"><?php echo $row->event_titel; ?></p>
 			
 			
@@ -380,7 +388,134 @@ else
 				}	
 			}
 		}
+
+		if(!isset($_GET["optionen"])) 
+		{
+			/*if - User bereits datum usgewählt -> keine auswahl mehr
+			{ 
+			?>
+			
+			<?php
+			}
+			else - auswahldaten anzeigen
+			{
+			?>
+			
+			<?php
+			}*/
+		?>
 		
+		<article>
+			<section id="inhalttitel">Optionen</section>
+				<table>
+					<tr>
+						<th align="left">Zusatz-Option</th><th>OK</th>
+					</tr>
+			<form method="post" action="index.php?<?php echo "section=event&link=" . $getlink . "&optionen"; ?>=2">
+			
+			<?php # Auslesen der Auswahl-Daten
+			$sql = $db->query('SELECT
+								optionen.optionen_id,
+								optionen.optionen_option,
+								event.event_id,
+								event.event_link
+							FROM 
+								optionen
+							JOIN 
+								event 
+							ON 
+								(optionen.fk_event_id = event.event_id)
+							WHERE 
+								event_link = "' . $getlink . '"');
+								
+				while($row = $sql->fetch_object())
+				{
+					?>
+					<tr onMouseover="this.bgColor='#aaaaaa'" onMouseout="this.bgColor='transparent'">
+						<td width="80%">
+							<?php echo $row->optionen_option; ?>
+						</td>
+						<td align="center">
+							<input type="checkbox" class="checkbox" name="<?php /* datum id auslesen */ echo $row->optionen_id;?>"/>
+							<input readonly hidden type="number" name="optionen_id" value="<?php /* datum id auslesen */ echo $row->optionen_id;?>" class="feld-halbiert" />
+						</td>
+					</tr>
+				<?php
+				}
+				?>
+					<tr>
+						<td></td>
+						<td align="center">
+							<ul class="formstyle">
+								<li>
+									<input type="submit" value="Optionen speichern" />
+								</li>
+							</ul>
+						</td>
+					</tr>
+				</table>
+			</form>
+		</article>
+		<?php
+		}
+		if(isset($_GET["optionen"])) 
+		{
+			if($_GET["optionen"] == "2") 
+			{
+			?>
+			<article>
+				<section id="inhalttitel">Optionen</section>
+			<?php
+			
+			/* aktuelle user_id in variable $fk_user_id speichern */
+			$sql = $db->query("SELECT user_id, user_email FROM user WHERE user_email = '$loginuser'");
+			while($row = $sql->fetch_object())
+			{
+				$fk_user_id = $row->user_id;
+			}
+			/* user_id in die session für übergabe speichern */
+			$_SESSION['fk_user_id'] = $fk_user_id;
+			
+			/* auslesen der terminauswahl und in die zwischentabelle schreiben */
+			foreach ($_POST as $key_optionen => $value_optionen) 
+			{
+			if ($key_optionen!="optionen_id")
+				{	
+				$sql = 'INSERT INTO optionen_has_user (`fk_optionen_id`, `fk_user_id`) VALUES (?, ?)';
+				$eintrag = $db->prepare($sql);
+				$eintrag->bind_param( 'ii', $key_optionen, $fk_user_id);
+				$eintrag->execute();
+				}			
+				//echo "<article>Ausgabe:<br><i>" . $key . "</i> <b>" . ($value ? 1 : 0 ) . "</b>  <u>" . $fk_user_id . "</u></b><br></article>";
+			}
+			
+				// Pruefen ob der Eintrag efolgreich war
+			if ($eintrag->affected_rows == 1)
+				{
+				?>
+					<section id="meldungOK">
+						<p id="meldungTitel">Hinweis</p>
+						<p>Zusatz-Optionen wurden gespeichert.</p>
+					</section>
+					<!--<meta http-equiv="refresh" content="1; URL=index.php?<?php //echo "section=event&link=" . $getlink . "&page"; ?>=3" />-->
+			</article>
+				<?php
+				}
+			else
+				{
+				?>
+					<section id="meldungError">
+						<p id="meldungTitel">Error</p>
+						<p>Optionen bereits eingetragen oder Fehler im System.<br> Bitte versuche es später noch einmal.</p>
+					</section>
+					<!--<meta http-equiv="refresh" content="3; URL=index.php?<?php// echo "section=event&link=" . $getlink . "&page"; ?>=3" />-->
+			</article>
+				<?php
+				
+				}	
+			}
+		}		
+
 		if(isset($_GET["page"])) 
 		{
 			if($_GET["page"] == "3") 
@@ -405,6 +540,7 @@ else
 			<tr>
 				<td>
 					<?php
+					/* Ausgabe Teilnehmer Datum */
 					$sql = $db->query('SELECT distinct
 											terminfindung.terminfindung_id,
 											terminfindung.terminfindung_datumzeit
@@ -426,8 +562,8 @@ else
 											event_link = "' . $getlink . '"
 										ORDER BY terminfindung_datumzeit ASC');
 					while($row = $sql->fetch_object())
-					{
-							$sqlcount = $db->query('SELECT count(user.user_vorname)
+					{  		/* Ausgabe Anzahl Teilnehmer pro Datum */
+							$sqlcount = $db->query('SELECT count(user.user_vorname) 
 														FROM 
 															terminfindung
 														JOIN 
@@ -452,7 +588,7 @@ else
 							echo "<b>" . $Teilnehmerdatumumwandlung . " - " . $Teilnehmerzeitumwandlung . " Uhr </b>(" . $rowcount[0] . ")<br><ul>";
 												
 
-
+								/* Ausgabe Teilnehmer Namen */
 								$sqlnamen = $db->query('SELECT
 															user.user_vorname,
 															user.user_name
@@ -481,7 +617,79 @@ else
 					?>	
 				</td>
 				<td>
-					...zusatz optionen
+					<?php
+					/* Ausgabe Optionen */
+					$sql = $db->query('SELECT distinct
+											optionen.optionen_id,
+											optionen.optionen_option
+										FROM 
+											optionen
+										JOIN 
+											event 
+										ON 
+											(optionen.fk_event_id = event.event_id)
+										JOIN 
+											optionen_has_user 
+										ON 
+											(optionen_has_user.fk_optionen_id = optionen.optionen_id)
+										JOIN 
+											user
+										ON 
+											(user.user_id = optionen_has_user.fk_user_id)
+										WHERE 
+											event_link = "' . $getlink . '"');
+					while($row = $sql->fetch_object())
+					{		/* Ausgabe Anzahl Teilnehmer pro Option */
+							$sqlcount = $db->query('SELECT count(user.user_vorname)
+														FROM 
+															optionen
+														JOIN 
+															event 
+														ON 	
+															(optionen.fk_event_id = event.event_id)
+														JOIN 
+															optionen_has_user 
+														ON
+															(optionen_has_user.fk_optionen_id = optionen.optionen_id)
+														JOIN
+															user
+														ON 
+															(user.user_id = optionen_has_user.fk_user_id)
+														WHERE 	
+															event_link = "' . $getlink . '" AND optionen_option = "' . $row->optionen_option . '" ');
+
+							$rowcount = $sqlcount->fetch_row();
+
+							echo "<b>" . $row->optionen_option . " </b>(" . $rowcount[0] . ")<br><ul>";
+												
+
+								/* Ausgabe Optionen Namen */
+								$sqlnamen = $db->query('SELECT
+															user.user_vorname,
+															user.user_name
+														FROM 
+															optionen
+														JOIN 
+															event 
+														ON 
+															(optionen.fk_event_id = event.event_id)
+														JOIN 
+															optionen_has_user 
+														ON 
+															(optionen_has_user.fk_optionen_id = optionen.optionen_id)
+														JOIN 
+															user
+														ON 
+															(user.user_id = optionen_has_user.fk_user_id)
+														WHERE 
+															event_link = "' . $getlink . '" AND optionen_option = "' . $row->optionen_option . '" ');
+								while($rownamen = $sqlnamen->fetch_object())
+								{
+									echo "<li>" . $rownamen->user_vorname . " " . $rownamen->user_name . "</li><br>";
+								}
+							echo "</ul><br>";
+					}
+					?>	
 				</td>
 			<tr>
 		</table>
