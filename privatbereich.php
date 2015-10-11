@@ -35,7 +35,7 @@ if(isset($_SESSION["loginname"]))
 		<article>
 <section id="inhalttitel">Meine Events</section>
 			<table>
-				<tr><th width="40%" align="left" id="event">Event</th><th align="center" id="deadline">Anmeldeschluss</th><th align="center" id="veranstalter">Veranstalter</th></tr>
+				<tr><th width="50%" align="left" id="privatbereich_event">Event</th><th align="center" id="privatbereich_deadline">Anmeldeschluss</th><th align="center" id="privatbereich_veranstalter">Veranstalter</th></tr>
 							
 <?php
 # Die SQL-Abfrage -> Events:
@@ -86,8 +86,8 @@ UNION DISTINCT
 					while($row = $sql->fetch_object())
 					{
 						echo '<tr class="linkzeile" onMouseover="this.bgColor=\'#aaaaaa\'" onMouseout="this.bgColor=\'transparent\'">';
-						echo '<td align="left" onClick="window.location.href=\'?section=event&link=' . $row->event_link . '\'">'. $row->event_titel .'</td>';
-						echo '<td align="center" onClick="window.location.href=\'?section=event&link=' . $row->event_link . '\'">'. datumEU($row->event_deadline) .'</td>';	
+						echo '<td id="privatbereich_event" align="left" onClick="window.location.href=\'?section=event&link=' . $row->event_link . '\'">'. $row->event_titel .'</td>';
+						echo '<td id="privatbereich_deadline" align="center" onClick="window.location.href=\'?section=event&link=' . $row->event_link . '\'">'. datumEU($row->event_deadline) .'</td>';	
 								
 								/* Veranstaltername abfrage - separat da sonst loginname aufgelistet wird */ 
 								$sqleventname = $db->query('SELECT
@@ -104,7 +104,7 @@ UNION DISTINCT
 									event_link = "' . $row->event_link . '"');
 								while($roweventname = $sqleventname->fetch_object())
 								{
-								echo '<td align="center" onClick="window.location.href=\'?section=event&link=' . $roweventname->event_link . '\'">'. $roweventname->user_vorname . " " . $roweventname->user_name . '</td>';					
+								echo '<td id="privatbereich_veranstalter" align="center" onClick="window.location.href=\'?section=event&link=' . $roweventname->event_link . '\'">'. $roweventname->user_vorname . " " . $roweventname->user_name . '</td>';					
 								}	
 								/* ENDE - Veranstaltername abfrage - separat da sonst loginname aufgelistet wird */ 
 								

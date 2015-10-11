@@ -165,7 +165,7 @@ else
 				<ul class="formstyle">
 					<li>
 						<label>Direktlink</label>
-						<input type="text" readonly name="event_link" class="feld-direktlink" value="http://localhost/terminbot/index.php?section=event&link=<?php echo $getlink;?>"/>
+						<input type="text" autofocus readonly name="event_link" class="feld-direktlink" value="http://localhost/terminbot/index.php?section=event&link=<?php echo $getlink;?>"/>
 					</li>
 				</ul>
 			</form>
@@ -271,9 +271,9 @@ else
 		
 		<article>
 			<section id="inhalttitel">Auswahldatum & Zeit</section>
-				<table>
+				<table >
 					<tr>
-						<th align="left">Datum</th><th>Zeit</th><th>Termin OK</th>
+						<th align="left">Datum</th><th>Zeit</th><th>OK</th>
 					</tr>
 			<form method="post" action="index.php?<?php echo "section=event&link=" . $getlink . "&page"; ?>=2">
 			
@@ -302,7 +302,7 @@ else
 						$zeitumwandlung = date("H:i",(strtotime($row->terminfindung_datumzeit)));
 						//echo $datumumwandlung . " - " . $zeitumwandlung . " Uhr ";?>
 					<tr onMouseover="this.bgColor='#aaaaaa'" onMouseout="this.bgColor='transparent'">
-						<td width="50%">
+						<td width="60%">
 							<?php echo $datumumwandlung; ?>
 						</td>
 						<td align="center">
@@ -317,16 +317,12 @@ else
 				}
 				?>
 					<tr>
-						<td></td><td></td>
-						<td align="center">
-							<ul class="formstyle">
-								<li>
-									<input type="submit" value="Daten speichern" />
-								</li>
-							</ul>
+						<td colspan="3">
+							<input class="buttonstyle" type="submit" value="Daten speichern" />
 						</td>
 					</tr>
 				</table>
+				
 			</form>
 		</article>
 		<?php
@@ -407,7 +403,7 @@ else
 		
 		<article>
 			<section id="inhalttitel">Optionen</section>
-				<table>
+				<table >
 					<tr>
 						<th align="left">Zusatz-Option</th><th>OK</th>
 					</tr>
@@ -444,7 +440,6 @@ else
 				}
 				?>
 					<tr>
-						<td></td>
 						<td align="center">
 							<ul class="formstyle">
 								<li>
@@ -515,17 +510,6 @@ else
 				}	
 			}
 		}		
-
-		if(isset($_GET["page"])) 
-		{
-			if($_GET["page"] == "3") 
-			{
-			//$user_id = mysqli_real_escape_string($db, $_SESSION['fk_user_id']);
-			?>
-			seite 3 
-			<?php
-			}
-		}
 		?>
 	<article>
 		<table>
@@ -691,13 +675,168 @@ else
 					}
 					?>	
 				</td>
-			<tr>
+			</tr>
 		</table>
 	</article>
 	<article>
-		<section id="inhalttitel">Fragen & Kommentare</section>
+		<?php
+		/* user_id des kommentators auslesen */
+		$sql = $db->query("SELECT user_id, user_email FROM user WHERE user_email = '$loginuser'");		
+		while($row = $sql->fetch_object())
+				{	$user_id = $row->user_id; }
+				
+		/* event_id des events auslesen */		
+		$sql = $db->query("SELECT event_id, fk_user_id FROM event WHERE event_link = '$getlink'");		
+		while($row = $sql->fetch_object())
+				{	$event_id = $row->event_id;	} /* event_id des events auslesen */
+		
+		/* Datum und Zeit setzen */		
+		$date = date_create(); 
+			
+		/* anzahl kommentare auslesen */
+		$sqlanzahlkommentare = $db->query("SELECT COUNT(fk_event_id) FROM kommentare WHERE fk_event_id = '$event_id'");		
+		$anzahlkommentare = $sqlanzahlkommentare->fetch_row();
+
+		echo "<section id='inhalttitel'>Fragen & Kommentare (" . $anzahlkommentare[0] . ")</section>";
+		
+		$kommentarNummerierung = 1;
+		
+		$sql = $db->query('SELECT 					
+								kommentare.kommentare_datumzeit,
+								kommentare.kommentare_kommentar,
+								kommentare.fk_user_id AS kommentarID,
+								user.user_id,
+								user.user_vorname,
+								user.user_name,
+								user.user_email,
+								event.event_link,
+								event.fk_user_id  AS eventID
+							FROM
+								kommentare
+							JOIN
+								user
+							ON
+								(kommentare.fk_user_id = user.user_id)
+							JOIN
+								event
+							ON
+								(kommentare.fk_event_id = event.event_id)
+							WHERE
+								event_link = "' . $getlink . '"
+							ORDER BY kommentare_datumzeit ASC');
+		
+		while($row = $sql->fetch_object())
+					{
+					$KommentarDatumZeit = date("d.m.Y - H:i",(strtotime($row->kommentare_datumzeit))); /* DatumZeit umwandeln */ 
+						if ($row->eventID == $row->kommentarID)
+						{
+						?>	
+							<section id="kommentarbereichVeranstalter">
+								<article>
+									<table>
+										<tr>
+											<th align="left"><?php echo $kommentarNummerierung . ".";?></th>
+											<td align="left"><?php echo "<b>" . $row->user_vorname . " " . $row->user_name . "</b> - Veranstalter";?></td>
+											<th align="right"><?php echo $KommentarDatumZeit . " Uhr";?></th>
+										</tr>
+										<tr>
+											<td colspan="3"><?php echo $row->kommentare_kommentar;?></td>
+										</tr>
+									</table>
+								</article>
+							</section>					
+						<?php
+						}
+						else
+						{
+						?>	
+							<section id="kommentarbereich">
+								<article>
+									<table>
+										<tr>
+											<th align="left"><?php echo $kommentarNummerierung . ".";?></th>
+											<th align="left"><?php echo $row->user_vorname . " " . $row->user_name;?></th>
+											<th align="right"><?php echo $KommentarDatumZeit . " Uhr";?></th>
+										</tr>
+										<tr>
+											<td colspan="3"><?php echo $row->kommentare_kommentar;?></td>
+										</tr>
+									</table>
+								</article>
+							</section>					
+						<?php
+						}
+					//$date = $row->kommentare_datumzeit;
+					
+					?>	
+			
+					<?php
+					$kommentarNummerierung++;
+					}
+		
+		 
+		if(!isset($_GET["kommentar"])) 
+		{
+
+
+		?>
+			<form method="post" action="index.php?<?php echo "section=event&link=" . $getlink . "&kommentar"; ?>=2">
+				<ul class="formstyle">
+					<li>
+						<input hidden readonly type="text" name="user_id" value="<?php /* user_id auslesen */ echo $user_id;?>" class="feld-lang" />
+					</li>
+					<li>
+						<input hidden readonly type="text" name="event_id" value="<?php /* event_id auslesen */ echo $event_id;?>" class="feld-lang" />
+					</li>
+					<li>
+						<input hidden readonly type="datetime" name="kommentare_datumzeit" value="<?php /* event_id auslesen */ echo date_format($date, 'Y-m-d H:i:s');?>" class="feld-lang" />
+					</li>
+					<li>
+						<label>Kommentar</label>
+						<textarea required type="text" name="kommentare_kommentar" class="feld-lang feld-textarea"/></textarea>
+					</li>
+					<li>
+						<input type="submit" value="Kommentar senden" />
+					</li>
+				</ul>
+			</form>
+		<?php
+		}
+		if(isset($_GET["kommentar"])) 
+		{
+			if($_GET["kommentar"] == "2") 
+			{
+				$user_id = mysqli_real_escape_string($db, $_POST["user_id"]);
+				$event_id = mysqli_real_escape_string($db, $_POST["event_id"]);
+				$kommentare_datumzeit = mysqli_real_escape_string($db, $_POST["kommentare_datumzeit"]);
+				$kommentare_kommentar = mysqli_real_escape_string($db, $_POST["kommentare_kommentar"]);
+				
+				$sql = 'INSERT INTO kommentare (`kommentare_datumzeit`, `kommentare_kommentar`, `fk_event_id`, `fk_user_id`) VALUES (?, ?, ?, ?)';
+				$eintrag = $db->prepare($sql);
+				$eintrag->bind_param( 'ssii', $kommentare_datumzeit, $kommentare_kommentar, $event_id, $user_id);
+				$eintrag->execute();
+				
+					// Pruefen ob der Eintrag efolgreich war
+					if ($eintrag->affected_rows == 1)
+						{
+						?>
+							<meta http-equiv="refresh" content="0; URL=index.php?<?php echo "section=event&link=" . $getlink; ?>" />
+						<?php
+						}
+					else
+						{
+						?>
+							<section id="meldungError">
+								<p id="meldungTitel">Error</p>
+								<p>Fehler im System. Bitte versuche es später noch einmal.</p>
+							</section>
+						<?php
+						}
+			}
+		}		
+		?>
 	</article>
 <?php
 }
 ?>
-	</article>
+	

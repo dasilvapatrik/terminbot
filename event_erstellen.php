@@ -497,9 +497,7 @@ if(isset($_GET["page"]))
 	<section id="inhalttitel">Event erstellen</section>
 	<article><p class="center">Schritte: Eventdetails - Terminfindung - Optionen - Überprüfung - <b>Abschicken</b></p></article>
 		
-		<?php
-		echo "<p>Dein Event ist nun erstellt und kann mit diesem Direktlink versendet werden. <br>Bitte kopiere den Link und versende ihn an deine Gäste.<p>";
-		?>
+	<p>Dein Event ist nun erstellt und kann mit diesem Direktlink versendet werden. <br>Bitte kopiere den Link und versende ihn an deine Gäste.<p>
 			<form>
 				<ul class="formstyle">
 					<li>

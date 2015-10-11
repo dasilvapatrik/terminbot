@@ -25,8 +25,8 @@ function copyToClipboard(elementId) {
 
 <p id="p1">P1: I am paragraph 1</p>
 <p id="p2">P2: I am a second paragraph</p>
-<button onclick="copyToClipboard('p1')">Copy P1</button>
-<button onclick="copyToClipboard('p2')">Copy P2</button>
+<button class="buttonstyle" onclick="copyToClipboard('p1')">Copy P1</button>
+<button class="buttonstyle" onclick="copyToClipboard('p2')">Copy P2</button>
 <br/><br/><input type="text" placeholder="Paste here for test" />
 
 					<form>

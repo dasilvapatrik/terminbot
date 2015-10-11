@@ -8,7 +8,7 @@ body
 	font-family: 'Open Sans', sans-serif;
 	color:#333333;
 	margin: 0;
-Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#cedce7+1,596a72+100;Grey+3D+%231 
+/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#cedce7+1,596a72+100;Grey+3D+%231 
 background: rgb(206,220,231); 
 background: -moz-linear-gradient(top,  rgba(206,220,231,1) 1%, rgba(89,106,114,1) 100%); 
 background: -webkit-gradient(linear, left top, left bottom, color-stop(1%,rgba(206,220,231,1)), color-stop(100%,rgba(89,106,114,1))); 
@@ -16,9 +16,9 @@ background: -webkit-linear-gradient(top,  rgba(206,220,231,1) 1%,rgba(89,106,114
 background: -o-linear-gradient(top,  rgba(206,220,231,1) 1%,rgba(89,106,114,1) 100%);
 background: -ms-linear-gradient(top,  rgba(206,220,231,1) 1%,rgba(89,106,114,1) 100%); 
 background: linear-gradient(to bottom,  rgba(206,220,231,1) 1%,rgba(89,106,114,1) 100%); 
-filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#cedce7', endColorstr='#596a72',GradientType=0 ); 
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#cedce7', endColorstr='#596a72',GradientType=0 ); */
 
-	/*  css-gardient hintergrund Fremdcode: cssmatic.com 
+	  css-gardient hintergrund Fremdcode: cssmatic.com 
 	background: rgba(255,255,255,1);
 	background: -moz-radial-gradient(center, ellipse cover, rgba(255,255,255,1) 0%, rgba(158,158,158,1) 100%);
 	background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, rgba(255,255,255,1)), color-stop(100%, rgba(158,158,158,1)));
@@ -26,7 +26,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#cedce7', end
 	background: -o-radial-gradient(center, ellipse cover, rgba(255,255,255,1) 0%, rgba(158,158,158,1) 100%);
 	background: -ms-radial-gradient(center, ellipse cover, rgba(255,255,255,1) 0%, rgba(158,158,158,1) 100%);
 	background: radial-gradient(ellipse at center, rgba(255,255,255,1) 0%, rgba(158,158,158,1) 100%);
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#9e9e9e', GradientType=1 );*/
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#9e9e9e', GradientType=1 );
 
 	/* schatten */
 	//-webkit-box-shadow:inset 0 0px 7px 0 #000000;
@@ -205,9 +205,41 @@ header
 
 #inhaltsbereich article
 {
-	border-top: 1px solid #0066ff; 
+	border-top: 1px dashed #0066ff; 
 	padding-top: 10px;
 	padding-bottom: 10px;
+}
+
+#kommentarbereich article
+{
+	border: 1px solid #424242;
+	padding: 7px;
+	margin-bottom:7px;
+	background:rgba(255,255,255,0.8);
+	
+	/* border radius */
+	-webkit-border-radius: 10px;
+	-webkit-border-top-left-radius: 0;
+	-moz-border-radius: 10px;
+	-moz-border-radius-topleft: 0;
+	border-radius: 10px;
+	border-top-left-radius: 0;
+}
+
+#kommentarbereichVeranstalter article
+{
+	border: 1px solid #424242;
+	padding: 7px;
+	margin-bottom:7px;
+	background:rgba(187,187,187,0.8);
+	
+	/* border radius */
+	-webkit-border-radius: 10px;
+	-webkit-border-top-left-radius: 0;
+	-moz-border-radius: 10px;
+	-moz-border-radius-topleft: 0;
+	border-radius: 10px;
+	border-top-left-radius: 0;
 }
 
 /* Navigation klein - Responsive Design */
@@ -279,7 +311,8 @@ nav ul li a:hover {
 .buttonstyle 
 {
 	float: right;
-	font-size:15px;
+	//margin-right: 20px;
+	font-size:1em;
     background: #0066ff;
     //padding: 8px 15px 8px 15px;
     //border: none;
@@ -291,10 +324,10 @@ nav ul li a:hover {
 	border-radius: 10px;
     padding: 15px;
     margin:0px;
-    -webkit-transition: all 0.30s ease-in-out;
-    -moz-transition: all 0.30s ease-in-out;
-    -ms-transition: all 0.30s ease-in-out;
-    -o-transition: all 0.30s ease-in-out;
+    -webkit-transition: all 0.20s ease-in-out;
+    -moz-transition: all 0.20s ease-in-out;
+    -ms-transition: all 0.20s ease-in-out;
+    -o-transition: all 0.20s ease-in-out;
     outline: none;  
 }
 
@@ -476,11 +509,14 @@ table{
 
 @media (max-width: 500px)
 {
-	/* Bemerkungen ausblenden bei Smartphone-Ansicht */
-	#event, tr td:nth-child(1)				{ font-size:13; }
-	#deadline, tr td:nth-child(2)			{ font-size:10; /*display:none; visibility:hidden;*/ }
-	#veranstalter, tr td:nth-child(3)		{ font-size:11; }
+	/* anpassungen bei Smartphone-Ansicht */
+/*	#event, tr td:nth-child(1)				{ font-size:13; }
+	#deadline, tr td:nth-child(2)			{ font-size:15; /*display:none; visibility:hidden; }
+	#veranstalter, tr td:nth-child(3)		{ font-size:11; }*/
 
+	#privatbereich_event, tr		{ font-size:13; }
+	#privatbereich_deadline, tr		{ font-size:0; /*display:none; visibility:hidden;*/ }
+	#privatbereich_veranstalter, tr	{ font-size:11; }
 	
 	
 	#titelbild
