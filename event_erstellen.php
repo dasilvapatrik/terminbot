@@ -79,7 +79,7 @@ else
 				</li>
 				<li>
 					<li><label>Standort</label>
-					<input type="text" required name="event_ortdetail" class="feld-halbiert" placeholder="Name / Stockwerk / Raum"/>&nbsp;<input type="text" required align-right name="event_ortstrasse" class="feld-halbiertRechts" placeholder="Strasse" /></li>
+					<input type="text" required name="event_ortdetail" class="feld-halbiert" placeholder="Name / Stockwerk / Raum"/>&nbsp;<input type="text" align-right name="event_ortstrasse" class="feld-halbiertRechts" placeholder="Strasse" /></li>
 					<input type="text" required name="event_ortplz" class="feld-halbiert" placeholder="PLZ"/>&nbsp;<input type="text" align-right required name="event_ort" class="feld-halbiertRechts" placeholder="Ort" /></li>
 					</li>
 				<li>
@@ -247,8 +247,6 @@ if(isset($_GET["page"]))
 	<section id="inhalttitel">Event erstellen</section>
 	<article><p class="center">Schritte: Eventdetails - Terminfindung - Optionen - <b>Überprüfung</b> - Abschicken</p></article>
 		<article>
-		<?php
-		?>
 		<table>
 			<tr>
 				<td class="spalteklein">Titel:</td>

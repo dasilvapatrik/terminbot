@@ -186,7 +186,8 @@ header
 	position: relative;
 	width:auto;
 	//background-color: #fff;
-	background:rgba(238,238,238,0.8);
+	//background:rgba(238,238,238,0.8);
+	background:rgba(255,255,255,0.8);
 	border: 3px solid #0066ff;
 	max-width:750px;
 	margin-top:155px;
@@ -210,12 +211,35 @@ header
 	padding-bottom: 10px;
 }
 
-#kommentarbereich article
+#spezialbereich
 {
-	border: 1px solid #424242;
+	border: 1px solid #d5d5d5;
 	padding: 7px;
 	margin-bottom:7px;
-	background:rgba(255,255,255,0.8);
+	background:rgba(241,243,244,0.8);
+	
+	/* border radius */
+	-webkit-border-radius: 10px;
+	-webkit-border-top-left-radius: 0;
+	-moz-border-radius: 10px;
+	-moz-border-radius-topleft: 0;
+	border-radius: 10px;
+	border-top-left-radius: 0;
+	
+	/* schatten nach innen inset
+   -moz-box-shadow:    inset 0 0 5px #000000;
+   -webkit-box-shadow: inset 0 0 5px #000000;
+   box-shadow:         inset 0 0 5px #000000;*/
+   
+}
+
+#kommentarbereich article
+{
+	border: 1px solid #d5d5d5;
+	padding: 7px;
+	margin-bottom:7px;
+	//background:rgba(229,239,249,0.8);
+	background:rgba(241,243,244,0.8);
 	
 	/* border radius */
 	-webkit-border-radius: 10px;
@@ -228,10 +252,10 @@ header
 
 #kommentarbereichVeranstalter article
 {
-	border: 1px solid #424242;
+	border: 1px solid #d5d5d5;
 	padding: 7px;
 	margin-bottom:7px;
-	background:rgba(187,187,187,0.8);
+	background:rgba(220,220,220,1);
 	
 	/* border radius */
 	-webkit-border-radius: 10px;
@@ -310,25 +334,22 @@ nav ul li a:hover {
 /* Buttons */
 .buttonstyle 
 {
-	float: right;
-	//margin-right: 20px;
-	font-size:1em;
     background: #0066ff;
-    //padding: 8px 15px 8px 15px;
-    //border: none;
+    padding: 8px 15px 8px 15px;
+    border: none;
     color: #fff;
-	//box-sizing: border-box;
-    //-webkit-box-sizing: border-box;
-    //-moz-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
     border:1px solid #BEBEBE;
-	border-radius: 10px;
-    padding: 15px;
+	border-radius: 3px;
+    //padding: 7px;
     margin:0px;
-    -webkit-transition: all 0.20s ease-in-out;
-    -moz-transition: all 0.20s ease-in-out;
-    -ms-transition: all 0.20s ease-in-out;
-    -o-transition: all 0.20s ease-in-out;
-    outline: none;  
+    -webkit-transition: all 0.30s ease-in-out;
+    -moz-transition: all 0.30s ease-in-out;
+    -ms-transition: all 0.30s ease-in-out;
+    -o-transition: all 0.30s ease-in-out;
+    outline: none;   
 }
 
 .buttonstyle:hover
@@ -395,7 +416,7 @@ select{
 .formstyle .feld-halbiert 	{	width: 49%; 	}
 .formstyle .feld-halbiertRechts 	{	width: 49%; float:right}
 .formstyle .feld-lang		{	width: 100%;	}
-.formstyle .feld-direktlink		{	width: 105%;	}
+.formstyle .feld-direktlink		{	width: 105%; background-color:#ccc;	}
 .formstyle .feld-select	{   width: 100%;	}
 .formstyle .feld-textarea	{   height: 200px;	}
 
@@ -451,8 +472,8 @@ footer
 table{
 	border: 0;
 	width: 100%;
-	padding: 5px;
-	border-spacing: 0px; 
+	padding: 1px;
+	border-spacing: 1px; 
 }
 
 .spalteklein
@@ -460,6 +481,18 @@ table{
 	width: 20%;
 	vertical-align: top;
 	font-weight: bold;
+}
+
+.verticaltop-links
+{
+	vertical-align: top;
+}
+
+.verticaltop-rechts
+{
+	vertical-align: top;
+	border-left: 1px dashed #0066ff;
+	padding-left:10px;
 }
 
 /* MISC */
@@ -470,7 +503,7 @@ table{
 
 .gmapsstyle
 {
-	width: 95%;
+	width: 98%;
 	margin: 0 auto 20 auto; /*oben links bottom rechts*/
 	
 	-webkit-box-shadow: 0px 0px 7px #000000;
@@ -517,6 +550,7 @@ table{
 	#privatbereich_event, tr		{ font-size:13; }
 	#privatbereich_deadline, tr		{ font-size:0; /*display:none; visibility:hidden;*/ }
 	#privatbereich_veranstalter, tr	{ font-size:11; }
+	#privatbereich_verwalten, tr	{ font-size:8; }
 	
 	
 	#titelbild

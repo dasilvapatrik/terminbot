@@ -25,17 +25,25 @@ if(isset($_SESSION["loginname"]))
 			$user_id = $row->user_id; //variable setzen für abfrage im privatbereich
 ?>
 <section id="inhalttitel">Privatbereich von <?php echo $row->user_vorname . " " . $row->user_name ; }?> 
-<form><input class="buttonstyle" type="button" value="Event erstellen" onClick="window.location='index.php?section=event_erstellen'"></form>
 <br class="clear"/></section>
 
 
 <p>Willkommen beim TerminBot. Dies ist eine erweiterte Eventanmeldeplattform.<br>Du befindest dich nun in deinem Privatbereich, wo deine Events aufgelistet sind.</p>
-
+<table>
+	<tr>
+		<td align="right">
+			<input class="buttonstyle" type="button" value="Event erstellen" onClick="window.location='index.php?section=event_erstellen'">
+		</td>
+		<td align="left">
+			<input class="buttonstyle" type="button" value="Event verwalten" onClick="window.location='index.php?section=event_verwalten'">
+		</td>
+	</tr>
+<table>
 
 		<article>
 <section id="inhalttitel">Meine Events</section>
 			<table>
-				<tr><th width="50%" align="left" id="privatbereich_event">Event</th><th align="center" id="privatbereich_deadline">Anmeldeschluss</th><th align="center" id="privatbereich_veranstalter">Veranstalter</th></tr>
+				<tr><th width="50%" align="left" id="privatbereich_event">Event</th><th align="center" id="privatbereich_deadline">Anmeldeschluss</th><th align="center" id="privatbereich_veranstalter">Veranstalter</th><th align="center" id="privatbereich_verwalten"></th></tr>
 							
 <?php
 # Die SQL-Abfrage -> Events:
@@ -81,7 +89,8 @@ UNION DISTINCT
 		(event.fk_user_id = user.user_id)
 
 	WHERE
-		user_email = "' . $loginuser . '"');				
+		user_email = "' . $loginuser . '"
+	ORDER BY event_deadline ASC');				
 					
 					while($row = $sql->fetch_object())
 					{
@@ -89,26 +98,41 @@ UNION DISTINCT
 						echo '<td id="privatbereich_event" align="left" onClick="window.location.href=\'?section=event&link=' . $row->event_link . '\'">'. $row->event_titel .'</td>';
 						echo '<td id="privatbereich_deadline" align="center" onClick="window.location.href=\'?section=event&link=' . $row->event_link . '\'">'. datumEU($row->event_deadline) .'</td>';	
 								
-								/* Veranstaltername abfrage - separat da sonst loginname aufgelistet wird */ 
-								$sqleventname = $db->query('SELECT
-									event.event_link,
-									user.user_vorname,
-									user.user_name
-								FROM
-									user
-								JOIN
-									event
-								ON
-									(event.fk_user_id = user.user_id)
-								WHERE
-									event_link = "' . $row->event_link . '"');
-								while($roweventname = $sqleventname->fetch_object())
-								{
+							/* Veranstaltername abfrage - separat da sonst loginname aufgelistet wird */ 
+							$sqleventname = $db->query('SELECT
+								event.event_link,
+								user.user_vorname,
+								user.user_name,
+								user.user_email
+							FROM
+								user
+							JOIN
+								event
+							ON
+								(event.fk_user_id = user.user_id)
+							WHERE
+								event_link = "' . $row->event_link . '"');
+							while($roweventname = $sqleventname->fetch_object())
+							{
 								echo '<td id="privatbereich_veranstalter" align="center" onClick="window.location.href=\'?section=event&link=' . $roweventname->event_link . '\'">'. $roweventname->user_vorname . " " . $roweventname->user_name . '</td>';					
-								}	
-								/* ENDE - Veranstaltername abfrage - separat da sonst loginname aufgelistet wird */ 
 								
-						/*echo '<td align="left" onClick="window.location.href=\'?section=event&link=' . $row->event_link . '\'">'. $row->user_vorname . " " . $row->user_name .'</td>';*/
+							/* ENDE - Veranstaltername abfrage - separat da sonst loginname aufgelistet wird */ 
+						
+							/* Verwaltungslink anzeigen wenn Eigener Event */ 
+							
+								if ($loginuser == $roweventname->user_email)
+								{
+									echo '<td id="privatbereich_verwalten" align="left" onClick="window.location.href=\'?section=event_edit&link=' . $row->event_link . '\'"><img src="img/edit_icon.png"></td>';
+								}
+								else
+								{
+								echo '<td onClick="window.location.href=\'?section=event&link=' . $row->event_link . '\'"></td>';
+								}
+							}
+							/* ENDE - Verwaltungslink anzeigen wenn Eigener Event */
+						
+						
+						
 						echo '</tr>';
 					}
 ?>

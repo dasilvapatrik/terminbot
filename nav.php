@@ -26,7 +26,7 @@ if ($_SESSION['loginname'] == '')
 </section>
 <nav class="nav">
 	<ul>
-		<li><a class="nav" href="index.php?section=startseite">Startseite</a></li>
+		<li><a class="nav" href="index.php?section=startseite">Privatbereich</a></li>
 		<li><a class="nav" href="index.php?section=hilfe">Hilfe</a></li>
 		<li><a class="nav" href="index.php?section=kontakt">Kontakt</a></li>
 		<li><a class="nav" href="index.php?section=logout">Logout</a></li>

@@ -46,9 +46,70 @@ function copyToClipboard(elementId) {
 			</form>
 			<button onclick="copyToClipboard('p11')">Copy P1</button>
 			<button onclick="copyToClipboard('p22')">Copy P2</button>
-<hr>
+			<br>
+			
+			
+<article>
+<?php
+if(!isset($_GET["page"])) 
+{
+?>
 
-<form action="mailto:dasilva.patrik@gmail.com" method="post" name="Formular" enctype="text/plain">
-Abesender:* <input type="text" name="absender" size=15><br>
-Nachricht:* <textarea name="nachricht" rows="3" cols="25"></textarea><br>
-<p><input type="submit" value="Abschicken"></form>
+	<form method="post" action="index.php?page=2">
+		<ul class="formstyle">
+				<li>
+					<label>Direktlink</label>
+					<input required readonly type="text" name="direktlink" class="feld-lang" value="http://localhost/terminbot/index.php?section=test" />
+				</li>
+					<label>E-Mail Empfänger</label>
+					<input autofocus type="text" name="email" class="feld-lang" />
+				<li>
+					<input type="submit" value="senden" />
+					<input type="reset" value="reset" />
+				</li>
+			</ul>
+		</form>
+<?php
+}
+if(isset($_GET["page"])) 
+{
+	if($_GET["page"] == "2") 
+	{
+		$direktlink = $_POST['direktlink'];
+		$mail 		= $_POST['terminbot@umgekehrt.ch'];
+
+		
+		
+		$absender = 'From: terminbot@umgekehrt.ch' . "\r\n" .
+					'Reply-To: terminbot@umgekehrt.ch' . "\r\n" .
+					'X-Mailer: PHP/' . phpversion();
+			
+$betreff = "TerminBot - Eventeinladung";
+$inhalt = "Hallo, Du wurdest zu folgenden Event eingeladen. Hier ist der direktlink:\n" . $direktlink . "\n\n
+Bitte folge dem Link und Log dich auf Terminbot-Plattform an und bestätige die Einladung.\n\n
+Beste Grüsse\n\n\n
+TerminBot - eine erweiterte Eventanmeldungsplattform.\n";
+					
+		$gesendet = "Deine Einladung wurde an den Empfänger gesendet.";
+		
+		mail($mail, $betreff, $inhalt, $absender);
+		echo "<br>direktlink: " . $direktlink;
+		echo "<br><br>mail: " . $mail;
+		echo "<br><br>absender: " . $absender;
+		echo "<br><br>betreff: " . $betreff;
+		echo "<br><br>inhalt: " . $inhalt;
+		echo $gesendet;
+	}
+}
+if(isset($_GET["page"])) 
+{
+	if($_GET["page"] == "3") 
+	{
+		
+		echo "<br><br>hallo seite 3 ";
+
+	}
+}
+?>
+</article>
+
