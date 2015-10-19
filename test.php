@@ -55,7 +55,7 @@ if(!isset($_GET["page"]))
 {
 ?>
 
-	<form method="post" action="index.php?page=2">
+	<form method="post" action="index.php?section=test&page=2">
 		<ul class="formstyle">
 				<li>
 					<label>Direktlink</label>

@@ -9,7 +9,8 @@ $direktlink = $_GET['link'];
 /* Veranstalter aus Event auslesen und in variable $veranstalteremail speichern */
 	$sql = $db->query("SELECT 
 						user.user_email,
-						event.event_link
+						event.event_link,
+						event.event_status
 					FROM 
 						event 
 					JOIN
@@ -18,7 +19,11 @@ $direktlink = $_GET['link'];
 						(event.fk_user_id = user.user_id)
 					WHERE event_link = '$direktlink'");		
 	while($row = $sql->fetch_object())
-			{	$veranstalteremail = $row->user_email;	}
+			{	
+				$veranstalteremail = $row->user_email;
+				$event_status = $row->event_status;
+			}
+	//$_SESSION['event_status'] = $event_status;
 /* ENDE - Veranstalter aus Event auslesen und in variable $veranstalteremail speichern */
 
 
@@ -38,6 +43,7 @@ else
 {
 	if(!isset($_GET["page"])) 
 	{
+		
 		$sql = $db->query("SELECT 
 							event.event_link,
 							event.event_titel,
@@ -66,6 +72,61 @@ else
 			<p>Hallo <?php echo $row->user_vorname . " " . $row->user_name; ?>. Hier kannst du dein Event editieren.</p>
 				<article>
 					<form method="post" action="index.php?section=event_edit&page=2">
+						<?php
+						if ($event_status != "0")
+						{
+						?>
+							<section id="meldungError">
+								<p>Dieser Event ist deaktiviert. Somit für Teilnehmer nicht freigegeben.</p>
+							</section>
+							<table>
+								<tr>
+									<ul class="formstyle">
+										<li>
+											<label>Event-Status</label>
+										</li>
+									</ul>
+								</tr>
+								<tr>
+									<td align="right">
+										<input type="radio" name="event_status" id="aktivieren" value="0"><label for="aktivieren">Event aktivieren</label>
+									</td>
+									<td>
+										<input type="radio" name="event_status" id="deaktivieren" value="1" checked ><label for="deaktivieren">Event deaktivieren</label>
+									</td>
+								</tr>
+							</table>
+						<?php
+						}
+						else
+						{
+						?>
+							<section id="meldungOK">
+								<p>Dieser Event ist aktiv. Somit für Teilnehmer freigegeben.</p>
+							</section>
+							<table>
+								<tr>
+									<ul class="formstyle">
+										<li>
+											<label>Event-Status</label>
+										</li>
+									</ul>
+								</tr>
+								<tr>
+									<td align="right">
+										<input type="radio" name="event_status" id="aktivieren" value="0" checked><label for="aktivieren">Event aktivieren</label>
+									</td>
+									<td>
+										<input type="radio" name="event_status" id="deaktivieren" value="1"><label for="deaktivieren">Event deaktivieren</label>
+									</td>
+								</tr>
+							</table>		
+						<?php
+						}
+						?>
+					
+				</article>
+				<article>
 						<ul class="formstyle">
 							<li>
 								<label>Direktlink</label>
@@ -156,6 +217,7 @@ else
 	{
 		if($_GET["page"] == "2") 
 		{
+			$event_status = mysqli_real_escape_string($db, $_POST["event_status"]);
 			$event_link = mysqli_real_escape_string($db, $_POST["event_link"]);
 			$event_titel = mysqli_real_escape_string($db, $_POST["event_titel"]);
 			$event_beschreibung = mysqli_real_escape_string($db, $_POST["event_beschreibung"]);
@@ -176,6 +238,7 @@ else
 			echo "event_deadline: " . $event_deadline . "<br>";	*/	
 		
 			$sql = $db->prepare("UPDATE event SET 
+							event_status = ?,
 							event_titel = ?, 
 							event_beschreibung = ?, 
 							event_ortdetail = ?,  
@@ -184,7 +247,8 @@ else
 							event_ort = ?,  
 							event_deadline = ?
 						   WHERE event_link = ?");
-							$sql->bind_param('ssssssss', 
+							$sql->bind_param('issssssss', 
+											$event_status,
 											$event_titel,
 											$event_beschreibung,
 											$event_ortdetail, 

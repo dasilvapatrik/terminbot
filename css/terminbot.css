@@ -483,6 +483,7 @@ table{
 	font-weight: bold;
 }
 
+/* Teilnehmer und Optionen*/
 .verticaltop-links
 {
 	vertical-align: top;
@@ -511,6 +512,38 @@ table{
 	box-shadow: 0px 0px 7px #000000;
 }
 
+/* Klapptext */
+details
+{
+	font-weight:bold;
+}
+
+summary::-webkit-details-marker 
+{
+	display: none
+}
+
+summary:after 
+{
+	background: #0066FF; 
+	border-radius: 5px; 
+	content: "+"; 
+	color: #FFF; 
+	float: left; 
+	font-size: 20px; 
+	font-weight: bold; 
+	margin: -5px 10px 0 0; 
+	padding: 0; 
+	text-align: center; 
+	width: 40px;
+	//height: 40px;
+}
+
+details[open] summary:after 
+{
+	content: "-";
+}
+/* ENDE -Klapptext */
 
 /* Responsive Design */
 @media (max-width: 765px)
@@ -548,10 +581,10 @@ table{
 	#veranstalter, tr td:nth-child(3)		{ font-size:11; }*/
 
 	#privatbereich_event, tr		{ font-size:13; }
-	#privatbereich_deadline, tr		{ font-size:0; /*display:none; visibility:hidden;*/ }
+	#privatbereich_deadline, tr		{ font-size:4; /*display:none; visibility:hidden;*/ }
 	#privatbereich_veranstalter, tr	{ font-size:11; }
-	#privatbereich_verwalten, tr	{ font-size:8; }
-	
+	#privatbereich_verwalten, tr	{ font-size:10; }
+	#privatbereich_welcometext, td 	{ font-size:13; }
 	
 	#titelbild
 	{
@@ -612,5 +645,4 @@ table{
 		color:#FFF;
 		background-color: #0066FF;
 	}	
-
 }

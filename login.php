@@ -69,7 +69,7 @@ if($control != 0)
 	if($verhalten == 1) 
 	{
 	?>
-		<meta http-equiv="refresh" content="2; URL=index.php?section=events" />
+		<meta http-equiv="refresh" content="1; URL=index.php?section=events" />
 		<!-- nach login - eventseite anzeigen lassen statt startseite-->
 	<?php
 	}
