@@ -189,7 +189,7 @@ if(isset($_GET["page"]))
 				<li id="AuswahlOptionenFeld">
 					<p>Hier dürfen zusätzliche Optionen für den Event erfasst werden. Die Teilnehmer können via Checkbox der Option zustimmen. Beachte also die Fragestellung.</p>
 					<label>Anzahl JA/NEIN-Optionen wählen</label>
-					<input NAME="anzahl" type=number value="3" min="1" max="15">
+					<input NAME="anzahl" type=number value="3" min="0" max="15">
 					<input NAME="submit" type=button VALUE="Auswahl Optionen erzeugen" onClick="AnzahlOptionen(form.anzahl.value)">
 				</li>
 				<li>
@@ -318,7 +318,7 @@ if(isset($_GET["page"]))
 							</script> 
 						</head> 
 						<body onLoad="initialize()">  
-							<div id="map_canvas" style="width: 100%; height: 300px;"></div>  
+							<div id="map_canvas"></div>  
 						</body>
 					</div>
 				</td>
@@ -474,13 +474,15 @@ if(isset($_GET["page"]))
 			<?php
 			}	
 		?>
-			<form method="post" action="index.php?section=event_erstellen&page=6">
+			<!--<form method="post" action="index.php?section=event_erstellen&page=6">
 				<ul class="formstyle">
 					<li>
+						
 						<input type="submit" value="Einladungen verschicken" />
 					</li>
 				</ul>
-			</form>
+			</form>-->
+			<meta http-equiv="refresh" content="1; URL=index.php?section=event_erstellen&page=6" />
 	<?php
 	}
 
@@ -490,21 +492,75 @@ if(isset($_GET["page"]))
 {
 	if($_GET["page"] == "6") 
 	{
-	$event_link = $_SESSION['event_link'];
-	?>
-	<section id="inhalttitel">Event erstellen</section>
-	<article><p class="center">Schritte: Eventdetails - Terminfindung - Optionen - Überprüfung - <b>Abschicken</b></p></article>
-		
-	<p>Dein Event ist nun erstellt und kann mit diesem Direktlink versendet werden. <br>Bitte kopiere den Link und versende ihn an deine Gäste.<p>
-			<form>
-				<ul class="formstyle">
-					<li>
-						<label>Direktlink</label>
-						<input type="text" readonly name="event_link" class="feld-direktlink" value="http://localhost/terminbot/index.php?section=event&link=<?php echo $event_link;?>"/>
-					</li>
-				</ul>
-			</form>
-	    <?php
+		if(!isset($_GET["direktlink"])) 
+		{
+			$event_link = $_SESSION['event_link'];
+			?>
+			<section id="inhalttitel">Event erstellen</section>
+			<article><p class="center">Schritte: Eventdetails - Terminfindung - Optionen - Überprüfung - <b>Abschicken</b></p></article>
+				
+			<p>Dein Event ist nun erstellt und kann mit diesem Direktlink versendet werden. <br>Bitte kopiere den Link und versende ihn an deine Gäste.<p>
+					<form>
+						<ul class="formstyle">
+							<li>
+								<label>Direktlink</label>
+								<input type="text" readonly name="event_link" class="feld-direktlink" value="http://localhost/terminbot/index.php?section=event&link=<?php echo $event_link;?>"/>
+							</li>
+						</ul>
+					</form>
+
+			<article>
+			<p>Du kannst deinen Gästen auch direkt eine Einladung per E-Mail senden.<br>Bitte gibt die E-Mail Adresse des Empfängers ein.<br>Nach dem senden kannst Du den nächsten Empfänger eingeben.<p>
+				<form method="post" action="index.php?section=event_erstellen&page=6&direktlink=2">
+					<ul class="formstyle">
+						<li>
+							<input hidden readonly type="text" name="direktlink" class="feld-direktlink" value="http://localhost/terminbot/index.php?section=event&link=<?php echo $event_link;?>"/>
+						</li>
+							<label>E-Mail Empfänger</label>
+							<input autofocus type="email" name="email" class="feld-lang" />
+						<li>
+							<input type="submit" value="senden" />
+						</li>
+					</ul>
+				</form>
+		<?php
+		}
+		if(isset($_GET["direktlink"])) 
+		{
+			if($_GET["direktlink"] == "2") 
+			{
+				$direktlink = $_POST['direktlink'];
+				$mail 		= $_POST['email'];
+
+				$absender = 'From: terminbot@umgekehrt.ch' . "\r\n" .
+							'Reply-To: terminbot@umgekehrt.ch' . "\r\n" .
+							'X-Mailer: PHP/' . phpversion();
+			
+$betreff = "TerminBot - Eventeinladung";
+$inhalt = "Hallo, Du wurdest eingeladen an folgendem Event teilzunehmen:\n" . $direktlink . "\n
+Bitte folge dem Link und log dich auf der Terminbot-Plattform um die Einladung zu bestaetigen.\n\n
+Besten Dank\n
+TerminBot - eine erweiterte Eventanmeldungsplattform.\n";
+					
+				
+				mail($mail, $betreff, $inhalt, $absender);
+				/*echo "<br>direktlink: " . $direktlink;
+				echo "<br><br>mail: " . $mail;
+				echo "<br><br>absender: " . $absender;
+				echo "<br><br>betreff: " . $betreff;
+				echo "<br><br>inhalt: " . $inhalt;*/
+				?>
+				<section id="meldungOK">
+					<p id="meldungTitel">Hinweis</p>
+					<p>Deine Einladung wurde an den Empfänger gesendet.</p>
+				</section>
+				<meta http-equiv="refresh" content="2; URL=index.php?section=event_erstellen&page=6" />
+				<?php
+			}
+		}
+		?>
+		</article>    
+		<?php
 	}
 }	
 ?>

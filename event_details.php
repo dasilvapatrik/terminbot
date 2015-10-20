@@ -134,7 +134,7 @@
 						</script> 
 					</head> 
 					<body onLoad="initialize()">  
-						<div id="map_canvas" style="width: 100%; height: 250px;"></div>  
+						<div id="map_canvas"></div>  
 					</body>
 				</div>
 				<table>

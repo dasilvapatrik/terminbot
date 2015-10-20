@@ -137,7 +137,7 @@ else	/****************************************************************** Begin E
 /* Wenn Event deatkiviert dann Meldung sonst Event anzeigen. */
 	if ($event_status != "0")
 	{
-		if($event_email == $loginuser)
+		if(($event_email == $loginuser) AND $event_status == "1")
 		{
 		?>
 			<section id="meldungError">
@@ -151,8 +151,8 @@ else	/****************************************************************** Begin E
 		{
 		?>
 			<section id="meldungError">
-				<p id="meldungTitel">Event deaktiviert</p>
-				<p>Dieser Event wurde vom Veranstalter deaktiviert.</p>
+				<p id="meldungTitel">Event deaktiviert oder gelöscht</p>
+				<p>Dieser Event wurde vom Veranstalter deaktiviert oder gelöscht.</p>
 			</section>	
 		<?php
 		}

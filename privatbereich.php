@@ -166,7 +166,7 @@ if(isset($_SESSION["loginname"]))
 							(event.fk_user_id = user.user_id)
 
 						WHERE
-							user_email = "' . $loginuser . '" AND event_status != "0"
+							user_email = "' . $loginuser . '" AND event_status = "1"
 						ORDER BY event_deadline ASC');				
 					
 					while($row = $sql->fetch_object())

@@ -94,9 +94,15 @@ h2	{ font-size: 1em; }
   width: 20px;
   height: 20px;
   vertical-align:middle;
-  background-color:green;
-  color: red;
 }
+
+.radiobutton
+{
+  width: 20px;
+  height: 20px;
+  vertical-align:middle;
+}
+
 
 
 header
@@ -112,31 +118,55 @@ header
 #meldungOK
 {
 	width: 90%;
-	border-radius: 10px;
+	//border-radius: 10px;
 	background-color: #90EE90;
 	border: 2px solid #008000;
 	margin: 0 auto 20px auto;
 	padding: 10px;
+	
+	/* border radius */
+	-webkit-border-radius: 10px;
+	-webkit-border-top-left-radius: 0;
+	-moz-border-radius: 10px;
+	-moz-border-radius-topleft: 0;
+	border-radius: 10px;
+	border-top-left-radius: 0;
 }
 
 #meldungError
 {
 	width: 90%;
-	border-radius: 10px;
+	//border-radius: 10px;
 	background-color: #FEb2b2;
 	border: 2px solid #FF0000;
 	margin: 0 auto 20px auto;
 	padding: 10px;
+	
+	/* border radius */
+	-webkit-border-radius: 10px;
+	-webkit-border-top-left-radius: 0;
+	-moz-border-radius: 10px;
+	-moz-border-radius-topleft: 0;
+	border-radius: 10px;
+	border-top-left-radius: 0;
 }
 
 #meldungLogin
 {
 	width: 90%;
-	border-radius: 10px;
+	//border-radius: 10px;
 	background-color: #87D0FF;
 	border: 2px solid #0066FF;
 	margin: 0 auto 20px auto;
 	padding: 10px;
+	
+	/* border radius */
+	-webkit-border-radius: 10px;
+	-webkit-border-top-left-radius: 0;
+	-moz-border-radius: 10px;
+	-moz-border-radius-topleft: 0;
+	border-radius: 10px;
+	border-top-left-radius: 0;
 }
 
 #meldungTitel
@@ -202,6 +232,15 @@ header
 	-webkit-box-shadow: 0px 0px 7px #000000;
 	-moz-box-shadow: 0px 0px 7px #000000;
 	box-shadow: 0px 0px 7px #000000;
+	
+	/* border radius */
+	-webkit-border-radius: 15px;
+	-webkit-border-top-left-radius: 0;
+	-moz-border-radius: 15px;
+	-moz-border-radius-topleft: 0;
+	border-radius: 15px;
+	border-top-left-radius: 0;	
+	
 }
 
 #inhaltsbereich article
@@ -360,6 +399,35 @@ nav ul li a:hover {
     -webkit-box-shadow:none;
 }
 
+.buttonstyledelete
+{
+    background: #FF0000;
+    padding: 8px 15px 8px 15px;
+    border: none;
+    color: #000;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    border:1px solid #BEBEBE;
+	border-radius: 3px;
+    //padding: 7px;
+    margin:0px;
+    -webkit-transition: all 0.30s ease-in-out;
+    -moz-transition: all 0.30s ease-in-out;
+    -ms-transition: all 0.30s ease-in-out;
+    -o-transition: all 0.30s ease-in-out;
+    outline: none;   
+}
+
+.buttonstyle:hover
+{
+    background: #000;
+    box-shadow:none;
+    -moz-box-shadow:none;
+    -webkit-box-shadow:none;
+}
+/* ENDE Buttons */
+
 /* Formular Style Teils Fremdcode von http://www.sanwebe.com/ - Form Style 1 */
 .formstyle 
 {
@@ -416,7 +484,7 @@ select{
 .formstyle .feld-halbiert 	{	width: 49%; 	}
 .formstyle .feld-halbiertRechts 	{	width: 49%; float:right}
 .formstyle .feld-lang		{	width: 100%;	}
-.formstyle .feld-direktlink		{	width: 105%; background-color:#ccc;	}
+.formstyle .feld-direktlink		{	width: 100%; background-color:#ccc;	}
 .formstyle .feld-select	{   width: 100%;	}
 .formstyle .feld-textarea	{   height: 200px;	}
 
@@ -434,6 +502,7 @@ select{
     -moz-box-shadow:none;
     -webkit-box-shadow:none;
 }
+
 /* ENDE Formularstyle */
 
 
@@ -502,6 +571,20 @@ table{
     clear:both;
 }
 
+#map_canvas
+{
+	width: 100%; 
+	height: 250px;
+
+	/* border radius */
+	-webkit-border-radius: 10px;
+	-webkit-border-top-left-radius: 0;
+	-moz-border-radius: 10px;
+	-moz-border-radius-topleft: 0;
+	border-radius: 10px;
+	border-top-left-radius: 0;
+}
+
 .gmapsstyle
 {
 	width: 98%;
@@ -510,6 +593,14 @@ table{
 	-webkit-box-shadow: 0px 0px 7px #000000;
 	-moz-box-shadow: 0px 0px 7px #000000;
 	box-shadow: 0px 0px 7px #000000;
+	
+		/* border radius */
+	-webkit-border-radius: 10px;
+	-webkit-border-top-left-radius: 0;
+	-moz-border-radius: 10px;
+	-moz-border-radius-topleft: 0;
+	border-radius: 10px;
+	border-top-left-radius: 0;
 }
 
 /* Klapptext */
@@ -581,7 +672,7 @@ details[open] summary:after
 	#veranstalter, tr td:nth-child(3)		{ font-size:11; }*/
 
 	#privatbereich_event, tr		{ font-size:13; }
-	#privatbereich_deadline, tr		{ font-size:4; /*display:none; visibility:hidden;*/ }
+	#privatbereich_deadline, tr		{ font-size:10; /*display:none; visibility:hidden;*/ }
 	#privatbereich_veranstalter, tr	{ font-size:11; }
 	#privatbereich_verwalten, tr	{ font-size:10; }
 	#privatbereich_welcometext, td 	{ font-size:13; }
