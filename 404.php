@@ -50,9 +50,13 @@ $verhalten = 0;
 			<div id="titelbild"></div>
 		</header>
 		<section id="wrapper">
-			<section id="inhaltsbereich"> <!-- Inhaltsbereich Weisser Container mit blauem Rand -->		
-				<?php include("nav_terminbot.php");	/* Navigation */?>	
-				<?php include("sites.php"); /* Seitenauswahl-Default: startseite.php*/?>
+			<section id="inhaltsbereich"> <!-- Inhaltsbereich Weisser Container mit blauem Rand -->	
+				<?php include("nav_terminbot.php");	/* Navigation */?>				
+					<section id="meldungError">
+						<p id="meldungTitel">Error</p>
+						<p>Die angegebene Seite konnte nicht gefunden werden.</p>
+						<p>Hier geht es zur <a href="index.php?section=startseite">Startseite</a></p>
+					</section>
 			</section>
 			
 			<footer>

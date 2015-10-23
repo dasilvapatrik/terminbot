@@ -78,7 +78,7 @@
 					<ul class="formstyle">
 						<li>
 							<label>Direktlink</label>
-							<input type="text" autofocus readonly name="event_link" class="feld-direktlink" value="http://localhost/terminbot/index.php?section=event&link=<?php echo $getlink;?>"/>
+							<input type="text" autofocus readonly name="event_link" class="feld-direktlink" value="http://terminbot.umgekehrt.ch/index.php?section=event&link=<?php echo $getlink;?>"/>
 						</li>
 					</ul>
 				</form>
@@ -170,19 +170,7 @@
 			{
 				if(!isset($_GET["page"])) /****************************************************************** Termine **********************************************************/
 				{
-					/*if - User bereits datum usgewählt -> keine auswahl mehr
-					{ 
-					?>
-					
-					<?php
-					}
-					else - auswahldaten anzeigen
-					{
-					?>
-					
-					<?php
-					}*/
-					?>
+				?>
 				<section id="spezialbereich">		
 					<table>
 						<tr>
@@ -212,8 +200,8 @@
 					{
 						?>
 						
-						<?php
-							$datumumwandlung = strftime("%A, %d. %B %Y",(strtotime($row->terminfindung_datumzeit)));
+						<?php 
+							$datumumwandlung = utf8_encode(strftime("%A, %d. %B %Y",(strtotime($row->terminfindung_datumzeit))));
 							$zeitumwandlung = date("H:i",(strtotime($row->terminfindung_datumzeit)));
 						?>
 						<tr onMouseover="this.bgColor='#aaaaaa'" onMouseout="this.bgColor='transparent'">
@@ -299,18 +287,6 @@
 				<?php /****************************************************************** OPTIONEN **********************************************************/
 				if(!isset($_GET["optionen"])) 
 				{
-					/*if - User bereits datum usgewählt -> keine auswahl mehr
-					{ 
-					?>
-					
-					<?php
-					}
-					else - auswahldaten anzeigen
-					{
-					?>
-					
-					<?php
-					}*/
 				?>
 				<section id="spezialbereich">
 					<table>

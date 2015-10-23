@@ -513,7 +513,7 @@ if(isset($_GET["page"]))
 						<ul class="formstyle">
 							<li>
 								<label>Direktlink</label>
-								<input type="text" readonly name="event_link" class="feld-direktlink" value="http://localhost/terminbot/index.php?section=event&link=<?php echo $event_link;?>"/>
+								<input type="text" readonly name="event_link" class="feld-direktlink" value="http://terminbot.umgekehrt.ch/index.php?section=event&link=<?php echo $event_link;?>"/>
 							</li>
 						</ul>
 					</form>
@@ -523,7 +523,7 @@ if(isset($_GET["page"]))
 				<form method="post" action="index.php?section=event_erstellen&page=6&direktlink=2">
 					<ul class="formstyle">
 						<li>
-							<input hidden readonly type="text" name="direktlink" class="feld-direktlink" value="http://localhost/terminbot/index.php?section=event&link=<?php echo $event_link;?>"/>
+							<input hidden readonly type="text" name="direktlink" class="feld-direktlink" value="http://terminbot.umgekehrt.ch/index.php?section=event&link=<?php echo $event_link;?>"/>
 						</li>
 							<label>E-Mail Empfänger</label>
 							<input autofocus type="email" name="email" class="feld-lang" />

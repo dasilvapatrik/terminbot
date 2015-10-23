@@ -145,7 +145,7 @@ else	/****************************************************************** Begin E
 				<p>Dieser Event wurde von Dir deaktiviert.<br>Du kannst den Event im Privatbereich wieder aktivieren.<br><br>Im deaktivierten Modus hast nur Du einsicht auf die Details</p>
 			</section>	
 		<?php	
-			include("event_details.php");	
+			include("event_details_terminbot.php");	
 		}
 		else
 		{
@@ -159,7 +159,7 @@ else	/****************************************************************** Begin E
 	}
 	else
 	{
-		include("event_details.php");	
+		include("event_details_terminbot.php");	
 	}
 }
 ?>

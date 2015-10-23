@@ -31,7 +31,7 @@ $direktlink = $_GET['link'];
 if(!isset($_SESSION["loginname"])) 
 {
 ?>
-	</article>
+	<article>
 		<section id="meldungError">
 			<p id="meldungTitel">Error</p>
 			<p>Du hast keine Berechtigungen oder bist nicht eingelogt</p>
@@ -83,9 +83,17 @@ else
 			while($row = $sql->fetch_object())
 			{	
 			?>
-			
-			<section id="inhalttitel">Eventverwaltung von: <?php echo $row->event_titel;?></section>
-				<p>Hallo <?php echo $row->user_vorname . " " . $row->user_name; ?>. Hier kannst du dein Event editieren oder löschen.</p>
+			<table>
+				<tr>
+					<td>
+						<section id="inhalttitel">Eventverwaltung von: <?php echo $row->event_titel;?></section>
+						<p>Hallo <?php echo $row->user_vorname . " " . $row->user_name; ?>. Hier kannst du dein Event editieren oder löschen.</p>
+					</td>
+					<td id="edit">
+					</td>
+				</tr>
+			</table>
+
 					<article>
 						<form method="post" action="index.php?section=event_edit&page=2">
 							<?php

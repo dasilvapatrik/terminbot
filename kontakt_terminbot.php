@@ -4,7 +4,7 @@ if(!isset($_GET["page"]))
 {
 ?>
 <p>Wenn du Fragen, Anregungen oder Probleme auf der Website hast, dann melde dies bitte hier.</p>
-	<form method="post" action="index.php?page=2">
+	<form method="post" action="index.php?section=kontakt&page=2">
 		<ul class="formstyle">
 				<li>
 					<label>Name</label>
@@ -21,7 +21,7 @@ if(!isset($_GET["page"]))
 				</li>
 				<li>
 					<label>Mitteilung</label>
-					<input required type="text" name="kontakt_mitteilung" class="feld-lang feld-textarea" />
+					<textarea required type="text" name="kontakt_mitteilung" class="feld-lang feld-textarea"/></textarea>
 				</li>
 				<li>
 					<input type="submit" value="Abschicken" />
@@ -46,14 +46,14 @@ if(isset($_GET["page"]))
 		
 		$gesendet = "Deine Einladung wurde an den Empfänger gesendet.";
 		
-		mail($mail, $kontakt_betreff, $mailinhalt, $kontakt_email);
-		echo "<br>an: " . $mail;
-		echo "<br><br>betreff: " . $kontakt_betreff;
-		echo "<br><br>mitteilung: " . $kontakt_mitteilung;
-		echo "<br><br>absender: " . $kontakt_email;
-		echo $gesendet;
-		?>
-		<meta http-equiv="refresh" content="2; URL=http://umgekehrt.ch/tbz/test/index.php" />
+		mail($mail, $kontakt_betreff, $mailinhalt, $kontakt_email);?>
+		
+							<section id="meldungOK">
+								<p id="meldungTitel">Hinweis</p>
+								<p>Dein Anfrage wurde erfolgreich abgeschickt.</p>
+							</section>
+		
+		<!--<meta http-equiv="refresh" content="2; URL=http://umgekehrt.ch/tbz/test/index.php" />-->
 		<?php
 	}
 }

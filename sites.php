@@ -2,31 +2,31 @@
 	switch($section)
 	{
 		case "hilfe":
-			include("hilfe.php"); 
+			include("hilfe_terminbot.php"); 
 		break;
 		
 		case "kontakt":
-			include("kontakt.php"); 
+			include("kontakt_terminbot.php"); 
 		break;
 
 		case "registrierung":
-			include("registrierung.php"); 
+			include("registrierung_terminbot.php"); 
 		break;
 	
 		case "logout":
-			include("logout.php"); 
+			include("logout_terminbot.php"); 
 		break;		
 		
 		case "event_erstellen":
-			include("event_erstellen.php"); 
+			include("event_erstellen_terminbot.php"); 
 		break;
 		
 		case "event":
-			include("event.php"); 
+			include("event_terminbot.php"); 
 		break;
 		
 		case "event_edit":
-			include("event_edit.php"); 
+			include("event_edit_terminbot.php"); 
 		break;
 
 		case "test":
@@ -34,6 +34,6 @@
 		break;
 		
 		default:
-			include("startseite.php"); 
+			include("startseite_terminbot.php"); 
 		break;
 	}
