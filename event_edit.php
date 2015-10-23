@@ -168,12 +168,17 @@ else
 								</li>
 								<li>
 									<label>Beschreibung</label>
-									<textarea required type="text" name="event_beschreibung" class="feld-lang feld-textarea"/><?php echo $row->event_beschreibung; ?></textarea>
-								</li>
+									<textarea required type="text" id="editor1" name="event_beschreibung" class="feld-lang feld-textarea"/><?php echo $row->event_beschreibung; ?></textarea>
+										<script>
+											// Replace the <textarea id="editor1"> with a CKEditor
+											// instance, using default configuration.
+											CKEDITOR.replace( 'editor1' );
+										</script>
+								</li>				
 								<li>
 									<label>Standort</label>	
-									<input type="text" required name="event_ortdetail" value="<?php echo $row->event_ortdetail; ?>" class="feld-halbiert" placeholder="Name / Stockwerk / Raum"/>&nbsp;<input type="text" align-right name="event_ortstrasse" value="<?php echo $row->event_ortstrasse; ?>" class="feld-halbiertRechts" placeholder="Strasse" /></li>
-									<input type="text" required name="event_ortplz" value="<?php echo $row->event_ortplz; ?>" class="feld-halbiert" placeholder="PLZ"/>&nbsp;<input type="text" align-right required name="event_ort" class="feld-halbiertRechts" value="<?php echo $row->event_ort; ?>" placeholder="Ort" /></li>
+									<li><input type="text" required name="event_ortdetail" value="<?php echo $row->event_ortdetail; ?>" class="feld-halbiert" placeholder="Name / Stockwerk / Raum"/>&nbsp;<input type="text" align-right name="event_ortstrasse" value="<?php echo $row->event_ortstrasse; ?>" class="feld-halbiertRechts" placeholder="Strasse" /></li>
+									<li><input type="text" required name="event_ortplz" value="<?php echo $row->event_ortplz; ?>" class="feld-halbiert" placeholder="PLZ"/>&nbsp;<input type="text" align-right required name="event_ort" class="feld-halbiertRechts" value="<?php echo $row->event_ort; ?>" placeholder="Ort" /></li>
 								</li>
 								<li>
 										<?php  

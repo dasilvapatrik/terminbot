@@ -113,3 +113,62 @@ if(isset($_GET["page"]))
 ?>
 </article>
 
+	<article>
+		<h1>CK Editor</h1>
+		<?php
+			if(!isset($_GET["page"])) 
+			{
+			?>
+			<p>Du kannst deinen Gästen auch direkt eine Einladung per E-Mail senden.<br>Bitte gibt die E-Mail Adresse des Empfängers ein.<br>Nach dem senden kannst Du den nächsten Empfänger eingeben.<p>
+				<form method="post" action="index.php?section=test&ckeditor=2">
+					<ul class="formstyle">
+							<li>
+								<label>Beschreibung</label>
+								<li>
+									<textarea type="text"  id="editor1" name="event_beschreibung"/>   This is my textarea to be replaced with CKEditor.</textarea>
+										<script>
+											// Replace the <textarea id="editor1"> with a CKEditor
+											// instance, using default configuration.
+											CKEDITOR.replace( 'editor1' );
+										</script>
+								</li>
+							</li>
+							<li>
+								<input type="submit" value="OK" />
+							</li>
+						</ul>
+					</form>
+			<?php
+			}
+			if(isset($_GET["ckeditor"])) 
+			{
+				if($_GET["ckeditor"] == "2") 
+				{
+					//$event_beschreibung = mysqli_real_escape_string($db, $_POST['event_beschreibung']);
+					//$event_beschreibung = str_ireplace('\r\n', '', $event_beschreibung);
+					
+					$event_beschreibung = $_POST['event_beschreibung'];
+					
+					echo "beschreibung: <br><br>" . $event_beschreibung;
+					echo "<hr>";
+					?>
+					<form method="post" action="index.php?section=test&ckeditor=2">
+					<ul class="formstyle">
+							<li>
+								<label>auslesen aus post</label>
+								<li>
+									<textarea type="text"  id="editor1" name="event_beschreibung" />   <?php echo $event_beschreibung; ?></textarea>
+										<script>
+											// Replace the <textarea id="editor1"> with a CKEditor
+											// instance, using default configuration.
+											CKEDITOR.replace( 'editor1' );
+										</script>
+								</li>
+							</li>
+						</ul>
+					</form>
+					<?php
+				}
+			}?>
+	</article>
+

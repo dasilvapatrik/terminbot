@@ -73,14 +73,20 @@ else
 					<label>Titel</label>
 					<input required autofocus type="text" name="event_titel" class="feld-lang" />
 				</li>
+				
 				<li>
 					<label>Beschreibung</label>
-					<textarea required type="text" name="event_beschreibung" class="feld-lang feld-textarea"/></textarea>
+					<textarea required type="text" id="editor1" name="event_beschreibung" class="feld-lang feld-textarea"/></textarea>
+						<script>
+							// Replace the <textarea id="editor1"> with a CKEditor
+							// instance, using default configuration.
+							CKEDITOR.replace( 'editor1' );
+						</script>
 				</li>
 				<li>
 					<li><label>Standort</label>
-					<input type="text" required name="event_ortdetail" class="feld-halbiert" placeholder="Name / Stockwerk / Raum"/>&nbsp;<input type="text" align-right name="event_ortstrasse" class="feld-halbiertRechts" placeholder="Strasse" /></li>
-					<input type="text" required name="event_ortplz" class="feld-halbiert" placeholder="PLZ"/>&nbsp;<input type="text" align-right required name="event_ort" class="feld-halbiertRechts" placeholder="Ort" /></li>
+						<li><input type="text" required name="event_ortdetail" class="feld-halbiert" placeholder="Name / Stockwerk / Raum"/>&nbsp;<input type="text" align-right name="event_ortstrasse" class="feld-halbiertRechts" placeholder="Strasse" /></li>
+						<li><input type="text" required name="event_ortplz" class="feld-halbiert" placeholder="PLZ"/>&nbsp;<input type="text" align-right required name="event_ort" class="feld-halbiertRechts" placeholder="Ort" /></li>
 					</li>
 				<li>
 					<label>Anmelde-Deadline</label>
@@ -103,7 +109,8 @@ if(isset($_GET["page"]))
 	/* Uebergabe Daten in Variable speichern */
 	$user_id = mysqli_real_escape_string($db, $_POST["user_id"]);
 	$event_titel = mysqli_real_escape_string($db, $_POST["event_titel"]);
-	$event_beschreibung = mysqli_real_escape_string($db, $_POST["event_beschreibung"]);
+	/*$event_beschreibung = mysqli_real_escape_string($db, $_POST["event_beschreibung"]);*/
+		$event_beschreibung = $_POST["event_beschreibung"];
 	$event_ortdetail = mysqli_real_escape_string($db, $_POST["event_ortdetail"]);
 	$event_ortstrasse = mysqli_real_escape_string($db, $_POST["event_ortstrasse"]);
 	$event_ortplz = mysqli_real_escape_string($db, $_POST["event_ortplz"]);
@@ -227,7 +234,8 @@ if(isset($_GET["page"]))
 		$_SESSION['optionen'] = $values_optionen;
 
 		$event_titel = mysqli_real_escape_string($db, $_SESSION['event_titel']);
-		$event_beschreibung = mysqli_real_escape_string($db, $_SESSION['event_beschreibung']);
+		/*$event_beschreibung = mysqli_real_escape_string($db, $_SESSION['event_beschreibung']);  ckeditor versuch*/
+		$event_beschreibung = $_SESSION['event_beschreibung'];
 		$event_ortdetail = mysqli_real_escape_string($db, $_SESSION['event_ortdetail']);
 		$event_ortstrasse = mysqli_real_escape_string($db, $_SESSION['event_ortstrasse']);
 		$event_ortplz = mysqli_real_escape_string($db, $_SESSION['event_ortplz']);
@@ -373,7 +381,8 @@ if(isset($_GET["page"]))
 	/* Event - Variablen aus Sessionübergabe */
 	$fk_user_id = mysqli_real_escape_string($db, $_SESSION['user_id']);
 	$event_titel = mysqli_real_escape_string($db, $_SESSION['event_titel']);
-	$event_beschreibung = mysqli_real_escape_string($db, $_SESSION['event_beschreibung']);
+		/*$event_beschreibung = mysqli_real_escape_string($db, $_SESSION['event_beschreibung']);  ckeditor versuch*/
+		$event_beschreibung = $_SESSION['event_beschreibung'];
 	$event_ortdetail = mysqli_real_escape_string($db, $_SESSION['event_ortdetail']);
 	$event_ortstrasse = mysqli_real_escape_string($db, $_SESSION['event_ortstrasse']);
 	$event_ortplz = mysqli_real_escape_string($db, $_SESSION['event_ortplz']);

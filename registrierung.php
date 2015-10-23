@@ -6,9 +6,9 @@ $loginuser = mysqli_real_escape_string($db, $_SESSION['loginname']);
 if ($_SESSION['loginname'] == '')
 {
 ?>
-<p>bla bla bla registrierung vorteil bla</p>
-
 	<section id="inhalttitel">Registrierung</section>
+	<p>Mit einem TerminBot-Account hast Du die übersicht über deine laufenden Events.<br> Im Privatbereich kannst Du zusätzlich eigene Events erstellen und bearbeiten.</p>
+
 	<?php
 	if(!isset($_GET["page"])) {
 	?>

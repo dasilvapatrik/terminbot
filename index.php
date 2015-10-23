@@ -33,6 +33,7 @@ $verhalten = 0;
         <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
         <title>TerminBot - eine erweiterte Eventanmeldungsplattform</title>
         <link rel="stylesheet" href="css/terminbot.css" type="text/css" media="screen" />
+		<script src="js/ckeditor/ckeditor.js"></script>
 		<script src="js/jquery-1.10.2.js"></script>
 		<script type="text/javascript">
 			$(document).ready(function() {
