@@ -289,12 +289,13 @@ header
 	border-top-left-radius: 0;
 }
 
+
 #kommentarbereichVeranstalter article
 {
 	border: 1px solid #d5d5d5;
 	padding: 7px;
 	margin-bottom:7px;
-	background:rgba(220,220,220,1);
+	background:rgba(220,220,220,0.7);
 	
 	/* border radius */
 	-webkit-border-radius: 10px;
@@ -304,6 +305,7 @@ header
 	border-radius: 10px;
 	border-top-left-radius: 0;
 }
+
 
 /* Navigation klein - Responsive Design */
 img {
@@ -488,7 +490,7 @@ select{
 .formstyle .feld-select	{   width: 100%;	}
 .formstyle .feld-textarea	{   height: 200px;	}
 
-.formstyle input[type=submit], .formstyle input[type=button]
+.formstyle input[type=submit], .formstyle input[type=button], .formstyle input[type=file]
 {
     background: #0066ff;
     padding: 8px 15px 8px 15px;
@@ -496,7 +498,7 @@ select{
     color: #fff;
 }
 
-.formstyle input[type=submit]:hover, .formstyle input[type=button]:hover{
+.formstyle input[type=submit]:hover, .formstyle input[type=button]:hover, .formstyle input[type=file]:hover{
     background: #000;
     box-shadow:none;
     -moz-box-shadow:none;
@@ -542,7 +544,7 @@ table{
 	border: 0;
 	width: 100%;
 	padding: 1px;
-	border-spacing: 1px; 
+	border-spacing: 0px;
 }
 
 .spalteklein

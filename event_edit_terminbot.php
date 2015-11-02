@@ -112,7 +112,7 @@ else
 								else
 								{
 								?>
-									<section id="meldungError">
+									<section id="meldungLogin">
 										<p>Dieser Event ist deaktiviert. Somit für Teilnehmer nicht freigegeben.</p>
 									</section>
 									<table>

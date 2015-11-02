@@ -125,11 +125,17 @@ if(isset($_GET["page"]))
 							<li>
 								<label>Beschreibung</label>
 								<li>
-									<textarea type="text"  id="editor1" name="event_beschreibung"/>   This is my textarea to be replaced with CKEditor.</textarea>
+									<textarea type="text"  id="ckeditor_kommentar" name="event_beschreibung"/>   This is my textarea to be replaced with CKEditor.</textarea>
 										<script>
 											// Replace the <textarea id="editor1"> with a CKEditor
 											// instance, using default configuration.
-											CKEDITOR.replace( 'editor1' );
+											//CKEDITOR.replace( 'editor1' );
+											//CKEDITOR.replace( 'editor1', {
+											//config.removePlugins = 'toolbar'; // NOTE: Remember to leave 'toolbar' property with the default value (null).
+											//});
+											
+											CKEDITOR.replace( 'ckeditor_kommentar', { removePlugins : 'elementspath, toolbar' });
+
 										</script>
 								</li>
 							</li>
@@ -157,12 +163,13 @@ if(isset($_GET["page"]))
 							<li>
 								<label>auslesen aus post</label>
 								<li>
-									<textarea type="text"  id="editor1" name="event_beschreibung" />   <?php echo $event_beschreibung; ?></textarea>
+									<textarea type="text" id="editor2" name="event_beschreibung" />   <?php echo $event_beschreibung; ?></textarea>
 										<script>
 											// Replace the <textarea id="editor1"> with a CKEditor
 											// instance, using default configuration.
-											CKEDITOR.replace( 'editor1' );
+											//CKEDITOR.replace( 'editor1'	);
 										</script>
+
 								</li>
 							</li>
 						</ul>
@@ -172,3 +179,73 @@ if(isset($_GET["page"]))
 			}?>
 	</article>
 
+
+
+<article>
+<?php
+/*********** pdf upload von beni *****************************/
+//Berechtigung überprüfen
+//include ("include/checkuser.php");
+ 
+//Bei der Datenbak anmelden
+//include("include/db_connect.php");
+
+//Falls Einstellungen Allgemein geändert wurden updaten
+if(isset($_POST['speichern_allgemein'])){
+	$anzahl = $_POST['anzahl'];
+	$anzeige_bis = $_POST['anzeige_bis'];
+	$sql = "UPDATE pr_einstellungen SET anzahl=$anzahl, anzeige_bis='$anzeige_bis' WHERE id=1";
+	$con->query($sql);
+}
+
+//Falls Einstellungen PDF geändert wurden updaten
+if(isset($_POST['speichern_pdf'])){
+	$ergebnis = mysqli_query($con, "SELECT * FROM pr");
+	while($row = mysqli_fetch_object($ergebnis)){
+		//Falls ein Eintrag gelöscht werden soll
+		if(isset($_POST['loeschen'.$row->id])){
+			$sql = "DELETE FROM pr WHERE id = '".$row->id."'";
+			unlink("upload/".$row->pdf_dateiname);
+		}
+		else{
+			$datum = $_POST['datum_jahr'.$row->id]."-".$_POST['datum_monat'.$row->id]."-01";
+			$titel = 	$_POST['titel'.$row->id];
+			$sql = "UPDATE pr SET datum='".$datum."', titel='".$titel."' WHERE id=".$row->id."";
+		}
+		$con->query($sql);
+	}
+
+}
+
+//PR hinzufügen
+if(isset($_POST['hin_submit'])){
+	$hin_monat = $_POST['hin_monat'];
+	$hin_jahr = $_POST['hin_jahr'];
+	$hin_titel = $_POST['hin_titel'];
+	
+	//Datei Upload
+	$dateityp = filesize($_FILES['pdf_datei']['tmp_name']);
+	if($_FILES['userfile']['type'] = "application/pdf"){
+		if($_FILES['pdf_datei']['size'] <  20000000){
+			$pdf_dateiname = uniqid().".pdf";
+			move_uploaded_file($_FILES['pdf_datei']['tmp_name'], "./upload/".$pdf_dateiname);
+		}
+		else{
+			echo "Das Bild darf nicht größer als 20 MB sein ";
+		}}
+	else{
+		echo "Bitte nur PDF hochladen";
+	}
+
+	//In DB eintragen
+	//Datum formatieren
+	$datum = $hin_jahr."-".$hin_monat."-"."01";
+	$sql = "INSERT INTO pr (datum,titel,pdf_dateiname) VALUES ('".$datum."','".$hin_titel."','".$pdf_dateiname."')";
+	$con->query($sql);
+}
+
+//Allgemeine Einstellungen einlesen 
+$einstellungen = mysqli_query($con, "SELECT * FROM pr_einstellungen"); 
+$row = mysqli_fetch_object($einstellungen);	
+?>
+</article>

@@ -550,9 +550,11 @@ $inhalt = "Hallo, Du wurdest eingeladen an folgendem Event teilzunehmen:\n" . $d
 Bitte folge dem Link und log dich auf der Terminbot-Plattform um die Einladung zu bestaetigen.\n\n
 Besten Dank\n
 TerminBot - eine erweiterte Eventanmeldungsplattform.\n";
-					
 				
-				mail($mail, $betreff, $inhalt, $absender);
+				/* Sicherheit */				
+				$checked_mail = str_replace(array("\n", "\r"), '', $mail);
+				
+				mail($checked_mail, $betreff, $inhalt, $absender);
 				/*echo "<br>direktlink: " . $direktlink;
 				echo "<br><br>mail: " . $mail;
 				echo "<br><br>absender: " . $absender;

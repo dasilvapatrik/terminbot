@@ -1,5 +1,5 @@
-ErrorDocument 400 http://localhost/terminbot/404.php
-ErrorDocument 401 http://localhost/terminbot/404.php
-ErrorDocument 403 http://localhost/terminbot/404.php
-ErrorDocument 404 http://localhost/terminbot/404.php
-ErrorDocument 500 http://localhost/terminbot/404.php
+ErrorDocument 400 http://terminbot.umgekehrt.ch/404.php
+ErrorDocument 401 http://terminbot.umgekehrt.ch/404.php
+ErrorDocument 403 http://terminbot.umgekehrt.ch/404.php
+ErrorDocument 404 http://terminbot.umgekehrt.ch/404.php
+ErrorDocument 500 http://terminbot.umgekehrt.ch/404.php

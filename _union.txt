@@ -1,0 +1,94 @@
+
+__ UNION
+select distinct
+		user.user_email,
+		user.user_vorname, 
+		user.user_name, 
+		event.event_titel,
+		event.event_link,
+		event.event_deadline,
+		event.fk_user_id
+	FROM
+		terminfindung 
+	JOIN
+		terminfindung_has_user
+	ON
+		(terminfindung_has_user.fk_terminfindung_id = terminfindung.terminfindung_id)
+	JOIN 
+		user 
+	ON 
+		(terminfindung_has_user.fk_user_id = user.user_id)
+	JOIN 
+		event 
+	ON 
+		(event.event_id = terminfindung.FK_event_id)
+	WHERE
+		terminfindung_has_user.fk_user_id = "5"
+UNION DISTINCT
+
+	Select
+		user.user_email,
+		user.user_vorname, 
+		user.user_name, 
+		event.event_titel,
+		event.event_link,
+		event.event_deadline, 
+		event.fk_user_id
+	FROM
+		event
+	JOIN
+		user
+	ON
+		(event.fk_user_id = user.user_id)
+
+	WHERE
+		user.user_email = "dasilva.patrik@umgekehrt.ch"
+
+
+___________________________________
+terminbotcode:
+___________________________________
+
+select distinct
+		user.user_email,
+		user.user_vorname, 
+		user.user_name, 
+		event.event_titel,
+		event.event_link,
+		event.event_deadline,
+		event.fk_user_id
+	FROM
+		terminfindung 
+	JOIN
+		terminfindung_has_user
+	ON
+		(terminfindung_has_user.fk_terminfindung_id = terminfindung.terminfindung_id)
+	JOIN 
+		user 
+	ON 
+		(terminfindung_has_user.fk_user_id = user.user_id)
+	JOIN 
+		event 
+	ON 
+		(event.event_id = terminfindung.FK_event_id)
+	WHERE
+		terminfindung_has_user.fk_user_id = "' . $user_id . '"
+UNION DISTINCT
+
+	Select
+		user.user_email,
+		user.user_vorname, 
+		user.user_name, 
+		event.event_titel,
+		event.event_link,
+		event.event_deadline, 
+		event.fk_user_id
+	FROM
+		event
+	JOIN
+		user
+	ON
+		(event.fk_user_id = user.user_id)
+
+	WHERE
+		user_email = "' . $loginuser . '"');

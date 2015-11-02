@@ -679,7 +679,12 @@
 							</li>
 							<li>
 								<label>Kommentar</label>
-								<textarea required type="text" name="kommentare_kommentar" class="feld-lang feld-textarea"/></textarea>
+								<textarea required type="text" id="ckeditor_kommentar" name="kommentare_kommentar" class="feld-lang feld-textarea"/></textarea>
+										<script>
+											// Replace the <textarea id="editor1"> with a CKEditor
+											// instance, using default configuration.
+											CKEDITOR.replace( 'ckeditor_kommentar', { removePlugins : 'elementspath, toolbar' });
+										</script>
 							</li>
 							<li>
 								<input type="submit" value="Kommentar senden" />
@@ -695,8 +700,8 @@
 						$user_id = mysqli_real_escape_string($db, $_POST["user_id"]);
 						$event_id = mysqli_real_escape_string($db, $_POST["event_id"]);
 						$kommentare_datumzeit = mysqli_real_escape_string($db, $_POST["kommentare_datumzeit"]);
-						$kommentare_kommentar = mysqli_real_escape_string($db, $_POST["kommentare_kommentar"]);
-						
+						$kommentare_kommentar = $_POST["kommentare_kommentar"];
+
 						$sql = 'INSERT INTO kommentare (`kommentare_datumzeit`, `kommentare_kommentar`, `fk_event_id`, `fk_user_id`) VALUES (?, ?, ?, ?)';
 						$eintrag = $db->prepare($sql);
 						$eintrag->bind_param( 'ssii', $kommentare_datumzeit, $kommentare_kommentar, $event_id, $user_id);

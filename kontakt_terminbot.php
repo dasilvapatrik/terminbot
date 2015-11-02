@@ -28,7 +28,7 @@ if(!isset($_GET["page"]))
 				</li>
 			</ul>
 		</form>
-<?php
+<?php							$checkedFrom = str_replace(array("\n", "\r"), '', $from); 
 }
 if(isset($_GET["page"])) 
 {
@@ -39,14 +39,15 @@ if(isset($_GET["page"]))
 		$kontakt_name = $_POST['kontakt_name'];
 		$kontakt_betreff = $_POST['kontakt_betreff'];
 		$kontakt_mitteilung = $_POST['kontakt_mitteilung'];
-
-		$mail = "terminbot@umgekehrt.ch";
+		
+		$mail = "terminbot@umgekehrt.ch";	
 		$mailinhalt = "Absendername: " . $kontakt_vorname . " " . $kontakt_name . "\n\n" . $kontakt_mitteilung;
 		
+		/* Sicherheit */
+		$checked_kontakt_email = str_replace(array("\n", "\r"), '', $kontakt_email);
+		$checked_mail = str_replace(array("\n", "\r"), '', $mail);
 		
-		$gesendet = "Deine Einladung wurde an den Empfänger gesendet.";
-		
-		mail($mail, $kontakt_betreff, $mailinhalt, $kontakt_email);?>
+		mail($checked_mail, $kontakt_betreff, $mailinhalt, $checked_kontakt_email);?>
 		
 							<section id="meldungOK">
 								<p id="meldungTitel">Hinweis</p>
