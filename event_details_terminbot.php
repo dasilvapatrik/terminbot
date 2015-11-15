@@ -73,85 +73,89 @@
 					}
 				}?>
 				
+				<article>
+					<table class="tabledirektlinktitel">
+						<tr><td>Direktlink:</td></tr>
+					</table>
+					<table class="tabledirektlink">
+						<tr><td >http://terminbot.umgekehrt.ch/index.php?section=event&link=<?php echo $getlink;?></td></tr>
+					</table>
+				</article>
 				
-				<form>
-					<ul class="formstyle">
-						<li>
-							<label>Direktlink</label>
-							<input type="text" autofocus readonly name="event_link" class="feld-direktlink" value="http://terminbot.umgekehrt.ch/index.php?section=event&link=<?php echo $getlink;?>"/>
-						</li>
-					</ul>
-				</form>
-				<p class="titel"><?php echo $row->event_titel; ?></p>
-				
-				
-				
-				<?php  
-				################################## GOOGLEMAPS ##########################################
-				// Adresse in var $adresse zusammenfügen     
-				$adresse = $row->event_ortstrasse . ', ' . $row->event_ortplz . ' ' . $row->event_ort; ?> 
-				
-				<div class="gmapsstyle">
-					<head> 
-					<!-- Google Maps Script einbinden --> 
-					<script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=false"></script> 
-						<script type="text/javascript"> 
-							var geocoder; 
-							  var map; 
-							$(document).ready(function() { 
-								 initialize(); 
-								});  
 
-							  function initialize() { 
-									geocoder = new google.maps.Geocoder(); 
-									var latlng = new google.maps.LatLng(-34.397, 150.644); 
-									var myOptions = { 
-										  zoom: 12, 
-										  center: latlng, 
+						
+				
+				<article>
+					<p class="titel"><?php echo $row->event_titel; ?></p>
+				
+				
+				
+					<?php  
+					################################## GOOGLEMAPS ##########################################
+					// Adresse in var $adresse zusammenfügen     
+					$adresse = $row->event_ortstrasse . ', ' . $row->event_ortplz . ' ' . $row->event_ort; ?> 
+					
+					<div class="gmapsstyle">
+						<head> 
+						<!-- Google Maps Script einbinden --> 
+						<script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=false"></script> 
+							<script type="text/javascript"> 
+								var geocoder; 
+								  var map; 
+								$(document).ready(function() { 
+									 initialize(); 
+									});  
 
-										  // Hier Snazzy Maps style einfügen
-										  styles: [{"stylers":[{"visibility":"on"},{"saturation":-100},{"gamma":0.54}]},{"featureType":"road","elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"water","stylers":[{"color":"#0099ff"}]},{"featureType":"poi","elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"poi","elementType":"labels.text","stylers":[{"visibility":"simplified"}]},{"featureType":"road","elementType":"geometry.fill","stylers":[{"color":"#ffffff"}]},{"featureType":"road.local","elementType":"labels.text","stylers":[{"visibility":"simplified"}]},{"featureType":"water","elementType":"labels.text.fill","stylers":[{"color":"#ffffff"}]},{"featureType":"transit.line","elementType":"geometry","stylers":[{"gamma":0.48}]},{"featureType":"transit.station","elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"road","elementType":"geometry.stroke","stylers":[{"gamma":7.18}]}]
-									} 
-									map = new google.maps.Map(document.getElementById("map_canvas"), myOptions); 
+								  function initialize() { 
+										geocoder = new google.maps.Geocoder(); 
+										var latlng = new google.maps.LatLng(-34.397, 150.644); 
+										var myOptions = { 
+											  zoom: 12, 
+											  center: latlng, 
 
-									codeAddress(); 
-								  } 
+											  // Hier Snazzy Maps style einfügen
+											  styles: [{"stylers":[{"visibility":"on"},{"saturation":-100},{"gamma":0.54}]},{"featureType":"road","elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"water","stylers":[{"color":"#0066ff"}]},{"featureType":"poi","elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"poi","elementType":"labels.text","stylers":[{"visibility":"simplified"}]},{"featureType":"road","elementType":"geometry.fill","stylers":[{"color":"#ffffff"}]},{"featureType":"road.local","elementType":"labels.text","stylers":[{"visibility":"simplified"}]},{"featureType":"water","elementType":"labels.text.fill","stylers":[{"color":"#ffffff"}]},{"featureType":"transit.line","elementType":"geometry","stylers":[{"gamma":0.48}]},{"featureType":"transit.station","elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"road","elementType":"geometry.stroke","stylers":[{"gamma":7.18}]}]
+										} 
+										map = new google.maps.Map(document.getElementById("map_canvas"), myOptions); 
 
-							function codeAddress() { 
-									var address = "<?php echo $adresse; ?>"; 
-									geocoder.geocode( { 'address': address}, function(results, status) { 
-									  if (status == google.maps.GeocoderStatus.OK) { 
-										map.setCenter(results[0].geometry.location); 
-										var marker = new google.maps.Marker({ 
-												map: map, 
-												position: results[0].geometry.location 
-										}); 
-									  } else { 
-										alert("Geocode was not successful for the following reason: " + status); 
+										codeAddress(); 
 									  } 
-								}); 
-							  }   
-						</script> 
-					</head> 
-					<body onLoad="initialize()">  
-						<div id="map_canvas"></div>  
-					</body>
-				</div>
-				<table>
+
+								function codeAddress() { 
+										var address = "<?php echo $adresse; ?>"; 
+										geocoder.geocode( { 'address': address}, function(results, status) { 
+										  if (status == google.maps.GeocoderStatus.OK) { 
+											map.setCenter(results[0].geometry.location); 
+											var marker = new google.maps.Marker({ 
+													map: map, 
+													position: results[0].geometry.location 
+											}); 
+										  } else { 
+											alert("Geocode was not successful for the following reason: " + status); 
+										  } 
+									}); 
+								  }   
+							</script> 
+						</head> 
+						<body onLoad="initialize()">  
+							<div id="map_canvas"></div>  
+						</body>
+					</div>
+					<table>
+						<tr>
+							<td id="event_ortdetail" class="spalteklein">Wo:</td><td></td>
+							<td><?php echo $row->event_ortdetail; ?></td>
+						<tr>
 					<tr>
-						<td id="event_ortdetail" class="spalteklein">Wo:</td><td></td>
-						<td><?php echo $row->event_ortdetail; ?></td>
+						<td id="event_ortstrasse" class="spalteklein">Strasse:</td><td></td>
+						<td><?php echo $row->event_ortstrasse; ?></td>
 					<tr>
-				<tr>
-					<td id="event_ortstrasse" class="spalteklein">Strasse:</td><td></td>
-					<td><?php echo $row->event_ortstrasse; ?></td>
-				<tr>
-				<tr>
-					<td id="event_ort" class="spalteklein">Ort:</td><td></td>
-					<td><?php echo $row->event_ortplz . " " . $row->event_ort; ?></td>
-				<tr>
-			</table>
-			
+					<tr>
+						<td id="event_ort" class="spalteklein">Ort:</td><td></td>
+						<td><?php echo $row->event_ortplz . " " . $row->event_ort; ?></td>
+					<tr>
+				</table>
+			</article>
 			<br>
 			<article>
 				<section id="inhalttitel">Beschreibung:</section>
@@ -275,10 +279,8 @@
 								<p>Termine bereits eingetragen oder Fehler im System.<br> Bitte versuche es später noch einmal.</p>
 							</section>
 							<!--<meta http-equiv="refresh" content="3; URL=index.php?<?php// echo "section=event&link=" . $getlink . "&page"; ?>=3" />-->
-					</article></section>	
-				
+					</article>	
 						<?php
-						
 						}	
 					}
 				}
@@ -368,7 +370,6 @@
 						$eintrag->bind_param( 'ii', $key_optionen, $fk_user_id);
 						$eintrag->execute();
 						}			
-						//echo "<article>Ausgabe:<br><i>" . $key . "</i> <b>" . ($value ? 1 : 0 ) . "</b>  <u>" . $fk_user_id . "</u></b><br></article>";
 					}
 					
 						// Pruefen ob der Eintrag efolgreich war
@@ -576,8 +577,6 @@
 				while($row = $sql->fetch_object())
 						{	$event_id = $row->event_id;	} /* event_id des events auslesen */
 				
-				/* Datum und Zeit setzen */		
-				$date = date_create(); 
 					
 				/* anzahl kommentare auslesen */
 				$sqlanzahlkommentare = $db->query("SELECT COUNT(fk_event_id) FROM kommentare WHERE fk_event_id = '$event_id'");		
@@ -675,9 +674,6 @@
 								<input hidden readonly type="text" name="event_id" value="<?php /* event_id auslesen */ echo $event_id;?>" class="feld-lang" />
 							</li>
 							<li>
-								<input hidden readonly type="datetime" name="kommentare_datumzeit" value="<?php /* event_id auslesen */ echo date_format($date, 'Y-m-d H:i:s');?>" class="feld-lang" />
-							</li>
-							<li>
 								<label>Kommentar</label>
 								<textarea required type="text" id="ckeditor_kommentar" name="kommentare_kommentar" class="feld-lang feld-textarea"/></textarea>
 										<script>
@@ -697,9 +693,13 @@
 				{
 					if($_GET["kommentar"] == "2") 
 					{
+						/* Datum und Zeit setzen beim speichern */		
+						$date_jetzt = date_create(); 
+						
+						/* Auslesen der POST-Infos und in Variable sichern */
 						$user_id = mysqli_real_escape_string($db, $_POST["user_id"]);
 						$event_id = mysqli_real_escape_string($db, $_POST["event_id"]);
-						$kommentare_datumzeit = mysqli_real_escape_string($db, $_POST["kommentare_datumzeit"]);
+						$kommentare_datumzeit = date_format($date_jetzt, 'Y-m-d H:i:s');
 						$kommentare_kommentar = $_POST["kommentare_kommentar"];
 
 						$sql = 'INSERT INTO kommentare (`kommentare_datumzeit`, `kommentare_kommentar`, `fk_event_id`, `fk_user_id`) VALUES (?, ?, ?, ?)';

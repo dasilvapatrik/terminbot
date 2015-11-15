@@ -484,9 +484,12 @@ select{
 }
 
 .formstyle .feld-halbiert 	{	width: 49%; 	}
-.formstyle .feld-halbiertRechts 	{	width: 49%; float:right}
+.formstyle .feld-halbiertRechts 	{	width: 49%; float:right;}
+.formstyle .feld-halbiertReadOnly 	{	width: 49%; background-color:#e6e6e6;		}
+.formstyle .feld-halbiertRechtsReadOnly 	{	width: 49%; float:right; background-color:#e6e6e6;}
 .formstyle .feld-lang		{	width: 100%;	}
-.formstyle .feld-direktlink		{	width: 100%; background-color:#ccc;	}
+.formstyle .feld-langReadOnly		{	width: 100%; background-color:#e6e6e6;	}
+.formstyle .feld-direktlink		{	width: 110%; background-color:#e6e6e6;	}
 .formstyle .feld-select	{   width: 100%;	}
 .formstyle .feld-textarea	{   height: 200px;	}
 
@@ -540,11 +543,70 @@ footer
 /* ENDE Schritte */
 
 /* tabelle */
-table{
+table
+{
 	border: 0;
 	width: 100%;
 	padding: 1px;
 	border-spacing: 0px;
+}
+
+.tabledirektlinktitel
+{
+	width: 80%;
+	margin: 0 auto;
+	text-align:left;
+	font-weight: bold;
+} 
+
+.tabledirektlink
+{
+	width: 80%;
+	margin: 0 auto;
+	text-align:center;
+	border: 1px solid #0066ff;
+	background-color: #e6e6e6;
+	border-radius: 3px;
+	border: 1px solid #0066ff;
+
+	/* schatten */
+	-moz-box-shadow: 0 0 3px #0066ff;
+	-webkit-box-shadow: 0 0 3px #0066ff;
+	box-shadow: 0 0 3px #0066ff;
+}
+
+.tablehilfe
+{
+	width: auto;
+	margin: 0 auto;
+	text-align:center;
+	border: 1px solid #0066ff;
+	background-color: #e6e6e6;
+	border-radius: 3px;
+	border: 1px solid #0066ff;
+
+	/* schatten */
+	-moz-box-shadow: 0 0 3px #0066ff;
+	-webkit-box-shadow: 0 0 3px #0066ff;
+	box-shadow: 0 0 3px #0066ff;
+}
+
+.hilfe_bilder
+{
+	width: 300px;
+	height: auto;
+}
+
+.hilfe_bilderbreit
+{
+	width: 400px;
+	height: auto;
+}
+
+.hilfe_bearbeitungsbutton
+{
+	width: 20px;
+	height: 20px;
 }
 
 .spalteklein
@@ -617,7 +679,7 @@ table{
 /* Klapptext */
 details
 {
-	font-weight:bold;
+	//font-weight:bold;
 }
 
 summary::-webkit-details-marker 
@@ -747,4 +809,9 @@ details[open] summary:after
 		color:#FFF;
 		background-color: #0066FF;
 	}	
+	
+	.tabledirektlink
+	{
+	width: 100%;
+	}
 }

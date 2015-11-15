@@ -47,7 +47,7 @@ if(isset($_SESSION["loginname"]))
 			<tr><th width="50%" align="left" id="privatbereich_event">Event</th><th width="20%" align="center" id="privatbereich_deadline">Anmeldeschluss</th><th align="center" id="privatbereich_veranstalter">Veranstalter</th><th width="20px" align="center" id="privatbereich_verwalten"></th></tr>
 							
 <?php
-		# Die SQL-Abfrage -> Events:
+		# SQL-Abfrage -> Privatbereich Liste-Events:
 		$sql = $db->query('select distinct
 				user.user_email,
 				user.user_vorname, 
@@ -145,7 +145,7 @@ if(isset($_SESSION["loginname"]))
 <!-- Deaktivierte Events ab hier -->
 <article>	
 	<details>
-		<summary>Meine deaktivierten Events</summary><br class="clear"/>
+		<summary><b>Meine deaktivierten Events</b></summary><br class="clear"/>
 		<table>
 			<tr><th width="50%" align="left" id="privatbereich_event">Event</th><th width="20%" align="center" id="privatbereich_deadline">Anmeldeschluss</th><th align="center" id="privatbereich_veranstalter">Veranstalter</th><th width="20px" align="center" id="privatbereich_verwalten"></th></tr>
 							

@@ -7,7 +7,7 @@ if ($_SESSION['loginname'] == '')
 {
 ?>
 	<section id="inhalttitel">Registrierung</section>
-	<p>Mit einem TerminBot-Account hast Du die übersicht über deine laufenden Events.<br> Im Privatbereich kannst Du zusätzlich eigene Events erstellen und bearbeiten.</p>
+	<p>Mit einem TerminBot-Account hast Du die Übersicht über deine laufenden Events.<br> Im Privatbereich kannst Du zusätzlich eigene Events erstellen und bearbeiten.</p>
 
 	<?php
 	if(!isset($_GET["page"])) {
@@ -27,11 +27,11 @@ if ($_SESSION['loginname'] == '')
 					<input required type="email" name="user_email" class="feld-lang" />
 				</li>
 				<li>
-					<label>Password</label>
+					<label>Passwort</label>
 					<input required type="password" name="pw1" class="feld-lang" />
 				</li>
 				<li>
-					<label>Password wiederholen</label>
+					<label>Passwort wiederholen</label>
 					<input required type="password" name="pw2" class="feld-lang" />
 				</li>
 				<li>
@@ -82,7 +82,7 @@ if(isset($_GET["page"]))
 				?>
 				<section id="meldungError">
 					<p id="meldungTitel">Error</p>
-					<p>User bereits vergeben. Bitte verwende einen anderen Usernamen. <a href="#" onclick="history.back(); return false">Zurück</a></p>
+					<p>User bereits vergeben. Bitte verwende einen anderen Usernamen & E-Mail Adresse. <a href="#" onclick="history.back(); return false">Zurück</a></p>
 				</section>
 				<?php
 			} 

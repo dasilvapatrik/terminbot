@@ -25,8 +25,8 @@ if ($_SESSION['loginname'] == '')
 	if($_GET["page"] == "log") 
 	{
 		$direktlink = mysqli_real_escape_string($db, $_POST["direktlink"]);
-		$email = mysqli_real_escape_string(strtolower($_POST["email"]));
-		$password = mysqli_real_escape_string(sha1($_POST["password"]));
+		$email = strtolower($_POST["email"]);
+		$password = sha1($_POST["password"]);
 
 				$control = 0;		
 				$sql = $db->query("SELECT * FROM user WHERE user_email = '$email' AND user_password = '$password'");		

@@ -141,7 +141,7 @@ if(isset($_GET["page"]))
 					<!-- Hier werden die Zusätzlichen Felder eingefügt -->
 				</li>
 				<li id="AuswahlFeld">
-					<label>Anzahl Auswahldatum wählen</label>
+					<label>Anzahl Auswahltermine wählen</label>
 					<input NAME="anzahl" type=number value="3" min="1" max="15">
 					<input NAME="submit" type=button VALUE="Auswahl Daten & Zeit erzeugen" onClick="AnzahlAuswahlDatum(form.anzahl.value)">
 				</li>
@@ -230,7 +230,7 @@ if(isset($_GET["page"]))
 				echo "<br>";*/
 		}
 
-		//Array in die Session speichern
+		/* Array in die Session speichern */
 		$_SESSION['optionen'] = $values_optionen;
 
 		$event_titel = mysqli_real_escape_string($db, $_SESSION['event_titel']);
@@ -244,13 +244,13 @@ if(isset($_GET["page"]))
 		
 		$values = $_SESSION['termine'];
 		
-	 # Auslesen der letzten event_id fürs eintragen der Termine
+	    /* Auslesen der letzten event_id fürs eintragen der Termine ***********************/
 		$sql = $db->query("SELECT event_id FROM event ORDER BY event_id DESC LIMIT 1");
 			while($row = $sql->fetch_object())
 			{
-				$fkw_event_id = $row->event_id+1;
+				$neue_event_id = $row->event_id+1;
 			}
-		$_SESSION['event_id'] = $fkw_event_id;
+		$_SESSION['event_id'] = $neue_event_id;
 	?>
 	<section id="inhalttitel">Event erstellen</section>
 	<article><p class="center">Schritte: Eventdetails - Terminfindung - Optionen - <b>Überprüfung</b> - Abschicken</p></article>
@@ -302,7 +302,7 @@ if(isset($_GET["page"]))
 											  center: latlng, 
 
 											  // Hier Snazzy Maps style einfÃ¼gen
-											  styles: [{"stylers":[{"visibility":"on"},{"saturation":-100},{"gamma":0.54}]},{"featureType":"road","elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"water","stylers":[{"color":"#0099ff"}]},{"featureType":"poi","elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"poi","elementType":"labels.text","stylers":[{"visibility":"simplified"}]},{"featureType":"road","elementType":"geometry.fill","stylers":[{"color":"#ffffff"}]},{"featureType":"road.local","elementType":"labels.text","stylers":[{"visibility":"simplified"}]},{"featureType":"water","elementType":"labels.text.fill","stylers":[{"color":"#ffffff"}]},{"featureType":"transit.line","elementType":"geometry","stylers":[{"gamma":0.48}]},{"featureType":"transit.station","elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"road","elementType":"geometry.stroke","stylers":[{"gamma":7.18}]}]
+											  styles: [{"stylers":[{"visibility":"on"},{"saturation":-100},{"gamma":0.54}]},{"featureType":"road","elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"water","stylers":[{"color":"#0066ff"}]},{"featureType":"poi","elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"poi","elementType":"labels.text","stylers":[{"visibility":"simplified"}]},{"featureType":"road","elementType":"geometry.fill","stylers":[{"color":"#ffffff"}]},{"featureType":"road.local","elementType":"labels.text","stylers":[{"visibility":"simplified"}]},{"featureType":"water","elementType":"labels.text.fill","stylers":[{"color":"#ffffff"}]},{"featureType":"transit.line","elementType":"geometry","stylers":[{"gamma":0.48}]},{"featureType":"transit.station","elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"road","elementType":"geometry.stroke","stylers":[{"gamma":7.18}]}]
 										} 
 										map = new google.maps.Map(document.getElementById("map_canvas"), myOptions); 
 
@@ -393,7 +393,7 @@ if(isset($_GET["page"]))
 	$values_optionen = $_SESSION['optionen']; 	
 	$FK_event_id = $_SESSION['event_id'];
 	
-	/* Hash Link für Events erzeugen: */
+	/***** Hash Link für Events erzeugen: *****/
 	$event_link = hash('crc32', ("Termin" . $FK_event_id ."Bot"));
 	/*echo $event_link;*/
 	$_SESSION['event_link'] = $event_link;
@@ -509,26 +509,27 @@ if(isset($_GET["page"]))
 			<article><p class="center">Schritte: Eventdetails - Terminfindung - Optionen - Überprüfung - <b>Abschicken</b></p></article>
 				
 			<p>Dein Event ist nun erstellt und kann mit diesem Direktlink versendet werden. <br>Bitte kopiere den Link und versende ihn an deine Gäste.<p>
-					<form>
-						<ul class="formstyle">
-							<li>
-								<label>Direktlink</label>
-								<input type="text" readonly name="event_link" class="feld-direktlink" value="http://terminbot.umgekehrt.ch/index.php?section=event&link=<?php echo $event_link;?>"/>
-							</li>
-						</ul>
-					</form>
 
-			<article>
+					<table class="tabledirektlinktitel">
+						<tr><td>Direktlink:</td></tr>
+					</table>
+					<table class="tabledirektlink">
+						<tr><td >http://terminbot.umgekehrt.ch/index.php?section=event&link=<?php echo $event_link;?></td></tr>
+					</table>
+
+		<article>
 			<p>Du kannst deinen Gästen auch direkt eine Einladung per E-Mail senden.<br>Bitte gibt die E-Mail Adresse des Empfängers ein.<br>Nach dem senden kannst Du den nächsten Empfänger eingeben.<p>
 				<form method="post" action="index.php?section=event_erstellen&page=6&direktlink=2">
 					<ul class="formstyle">
 						<li>
 							<input hidden readonly type="text" name="direktlink" class="feld-direktlink" value="http://terminbot.umgekehrt.ch/index.php?section=event&link=<?php echo $event_link;?>"/>
 						</li>
+						<li>
 							<label>E-Mail Empfänger</label>
 							<input autofocus type="email" name="email" class="feld-lang" />
+						</li>
 						<li>
-							<input type="submit" value="senden" />
+							<input type="submit" value="Absenden" />
 						</li>
 					</ul>
 				</form>
@@ -538,6 +539,7 @@ if(isset($_GET["page"]))
 		{
 			if($_GET["direktlink"] == "2") 
 			{
+				$event_titel = mysqli_real_escape_string($db, $_SESSION['event_titel']);
 				$direktlink = $_POST['direktlink'];
 				$mail 		= $_POST['email'];
 
@@ -546,11 +548,15 @@ if(isset($_GET["page"]))
 							'X-Mailer: PHP/' . phpversion();
 			
 $betreff = "TerminBot - Eventeinladung";
-$inhalt = "Hallo, Du wurdest eingeladen an folgendem Event teilzunehmen:\n" . $direktlink . "\n
-Bitte folge dem Link und log dich auf der Terminbot-Plattform um die Einladung zu bestaetigen.\n\n
+			## Username aus DB auslesen ##
+			$sql = $db->query("SELECT * FROM user WHERE user_email = '$loginuser'");		
+			while($row = $sql->fetch_object())
+			{
+$inhalt = "Hallo, Du wurdest von " . $row->user_vorname . " " . $row->user_name . " eingeladen an folgendem Event teilzunehmen:\n\n" . $event_titel . "\n\n" . $direktlink . "\n
+Bitte folge dem Link und log dich auf der TerminBot-Plattform an, um die Einladung zu bestätigen.\n\n
 Besten Dank\n
 TerminBot - eine erweiterte Eventanmeldungsplattform.\n";
-				
+			}
 				/* Sicherheit */				
 				$checked_mail = str_replace(array("\n", "\r"), '', $mail);
 				

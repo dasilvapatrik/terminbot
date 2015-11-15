@@ -45,7 +45,7 @@ if($control != 0)
 					<input required autofocus type="email" name="email" class="feld-lang" />
 				</li>
 				<li>
-					<label>Password</label>
+					<label>Passwort</label>
 					<input required autocomplete type="password" name="password" class="feld-lang" />
 				</li>
 				<li>

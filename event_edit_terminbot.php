@@ -164,10 +164,16 @@ else
 						
 					</article>
 					<article>
+						<table class="tabledirektlinktitel">
+							<tr><td>Direktlink:</td></tr>
+						</table>
+						<table class="tabledirektlink">
+							<tr><td >http://terminbot.umgekehrt.ch/index.php?section=event&link=<?php echo $direktlink;?></td></tr>
+						</table>
+					</article>
+					<article>
 							<ul class="formstyle">
 								<li>
-									<label>Direktlink</label>
-									<input type="text" readonly name="direktlink" class="feld-direktlink" value="http://localhost/terminbot/index.php?section=event&link=<?php echo $direktlink;?>"/>
 									<input type="text" hidden readonly name="event_link" class="feld-lang" value="<?php echo $direktlink;?>"/>
 								</li>
 								<li>
@@ -280,7 +286,7 @@ else
 			$event_status = mysqli_real_escape_string($db, $_POST["event_status"]);
 			$event_link = mysqli_real_escape_string($db, $_POST["event_link"]);
 			$event_titel = mysqli_real_escape_string($db, $_POST["event_titel"]);
-			$event_beschreibung = mysqli_real_escape_string($db, $_POST["event_beschreibung"]);
+			$event_beschreibung = $_POST["event_beschreibung"];
 			$event_ortdetail = mysqli_real_escape_string($db, $_POST["event_ortdetail"]);
 			$event_ortstrasse = mysqli_real_escape_string($db, $_POST["event_ortstrasse"]);
 			$event_ortplz = mysqli_real_escape_string($db, $_POST["event_ortplz"]);
@@ -312,8 +318,10 @@ else
 						{	
 							$veranstalteremail = $row->user_email;
 						}
+							
 							/*echo "<br><br>veranstaltungsmail: " . $veranstalteremail;
-							echo "<br>loginuser: " . $loginuser;*/
+							echo "<br>loginuser: " . $loginuser;
+							echo "<br>event_link: " . $event_link;*/
 							
 			/* ENDE - Veranstalter aus Event auslesen und in variable $veranstalteremail speichern */
 			
