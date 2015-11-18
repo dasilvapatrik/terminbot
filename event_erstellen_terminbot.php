@@ -552,7 +552,7 @@ $betreff = "TerminBot - Eventeinladung";
 			$sql = $db->query("SELECT * FROM user WHERE user_email = '$loginuser'");		
 			while($row = $sql->fetch_object())
 			{
-$inhalt = "Hallo, Du wurdest von " . $row->user_vorname . " " . $row->user_name . " eingeladen an folgendem Event teilzunehmen:\n\n" . $event_titel . "\n\n" . $direktlink . "\n
+$inhalt = "Hallo, Du wurdest von " . $row->user_vorname . " " . $row->user_name . " eingeladen an folgendem Event teilzunehmen:\n" . $event_titel . "\n\n" . $direktlink . "\n
 Bitte folge dem Link und log dich auf der TerminBot-Plattform an, um die Einladung zu bestätigen.\n\n
 Besten Dank\n
 TerminBot - eine erweiterte Eventanmeldungsplattform.\n";

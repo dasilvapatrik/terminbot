@@ -620,9 +620,9 @@
 										<article>
 											<table>
 												<tr>
-													<th align="left"><?php echo $kommentarNummerierung . ".";?></th>
-													<td align="left"><?php echo "<b>" . $row->user_vorname . " " . $row->user_name . "</b> - Veranstalter";?></td>
-													<th align="right"><?php echo $KommentarDatumZeit . " Uhr";?></th>
+													<th width="5%" align="left"><?php echo $kommentarNummerierung . ".";?></th>
+													<td width="65%" align="left"><?php echo "<b>" . $row->user_vorname . " " . $row->user_name . "</b> - Veranstalter";?></td>
+													<th width="30%" align="right"><?php echo $KommentarDatumZeit . " Uhr";?></th>
 												</tr>
 												<tr>
 													<td colspan="3"><?php echo $row->kommentare_kommentar;?></td>
@@ -639,9 +639,9 @@
 										<article>
 											<table>
 												<tr>
-													<th align="left"><?php echo $kommentarNummerierung . ".";?></th>
-													<th align="left"><?php echo $row->user_vorname . " " . $row->user_name;?></th>
-													<th align="right"><?php echo $KommentarDatumZeit . " Uhr";?></th>
+													<th width="5%" align="left"><?php echo $kommentarNummerierung . ".";?></th>
+													<th width="65%" align="left"><?php echo $row->user_vorname . " " . $row->user_name;?></th>
+													<th width="30%" align="right"><?php echo $KommentarDatumZeit . " Uhr";?></th>
 												</tr>
 												<tr>
 													<td colspan="3"><?php echo $row->kommentare_kommentar;?></td>
